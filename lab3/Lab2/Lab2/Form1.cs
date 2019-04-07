@@ -17,6 +17,7 @@ namespace Lab2
     public partial class Form1 : Form
     {
         SqlConnection connectWarehousebd = new SqlConnection();//строка подключения для MSSQL
+        SqlCommand cmd = new SqlCommand();
         private SqlConnection сonnectWarehousebd;
         public Form1()
         {
@@ -37,7 +38,7 @@ namespace Lab2
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику Bus_Route
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
             сonnectWarehousebd = new SqlConnection(connctSt );//
             сonnectWarehousebd.Open();//метод открытия подключения
             richTextBox1.Text += String.Format("Версия сервера:{0} \n", сonnectWarehousebd.ServerVersion);
@@ -56,7 +57,7 @@ namespace Lab2
         private void button3_Click(object sender, EventArgs e)
         {
 
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику Bus_Route
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
             сonnectWarehousebd = new SqlConnection(connctSt);//
             SqlCommand cmd = new SqlCommand("SELECT count(clients.name)FROM clients", сonnectWarehousebd);
             сonnectWarehousebd.Open();//метод открытия подключения
@@ -69,7 +70,7 @@ namespace Lab2
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику Bus_Route
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику
             сonnectWarehousebd = new SqlConnection(connctSt);//
             SqlCommand cmd = new SqlCommand("INSERT INTO clients(id_passport, id_client, name, surname, patronymic,phone) VALUES (6, 6, 5,5,5,2342344)", сonnectWarehousebd);
             сonnectWarehousebd.Open();//метод открытия подключения
@@ -77,6 +78,52 @@ namespace Lab2
             richTextBox1.Text = String.Format("Записей добавлено:{0} \n", cmd.ExecuteNonQuery());
             сonnectWarehousebd.Close();
 
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику
+            сonnectWarehousebd = new SqlConnection(connctSt);
+            сonnectWarehousebd.Open();
+            cmd.Connection = сonnectWarehousebd;
+            cmd.CommandText = "SELECT * FROM clients ";
+            SqlDataReader reader = cmd.ExecuteReader();
+            int i = 0;
+            while (reader.Read())
+            {
+                i++;
+                richTextBox1.Text += String.Format("Данные о клиенте\n№{0}:\nИмя: {1} \nФамилия: {2}\nОтчество: {3} \n", i, reader[2], reader[3], reader[4]);
+
+            }
+            reader.Close();
+            сonnectWarehousebd.Close();
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику
+            сonnectWarehousebd = new SqlConnection(connctSt);
+            сonnectWarehousebd.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM clients; SELECT* FROM passport", сonnectWarehousebd);
+            SqlDataReader reader = cmd.ExecuteReader();
+            int i = 0;
+            richTextBox1.Text = "Данные о клиенте\n";
+            while (reader.Read())
+            {
+                i++;
+                richTextBox1.Text += String.Format("№{0}:\nИмя: {1} \nФамилия: {2}\nОтчество: {3} \n", i, reader[2], reader[3], reader[4]);
+            }
+            reader.NextResult();
+             i = 0;
+            richTextBox1.Text += "Данные о паспорте\n";
+            while (reader.Read())
+            {
+                i++;
+                richTextBox1.Text += String.Format("№{0}:\nВыдан: {1} \nДата рождения: {2}\nкем выдан: {3} \n", i, reader[2], reader[3], reader[4]);
+            }
+            reader.Close();
+            сonnectWarehousebd.Close();
         }
     }
 }
