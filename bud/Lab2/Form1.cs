@@ -21,31 +21,30 @@ namespace Lab2
         private SqlConnection сonnectbd;
         public Form1()
         {
-             InitializeComponent();
+            InitializeComponent();
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.сonnectbd = new SqlConnection(@"Data Source=Max;Initial Catalog=bud_bd;Integrated Security=True");
-            this.сonnectbd.Open();
-            object сonnectbd = сonnectbd;
-            richTextBox1.Text = string.Format("Версия сервера:{0} \n", сonnectbd.ServerVersion);
-            richTextBox1.Text += string.Format("Состояние соединения1:{0} \n", сonnectbd.State.ToString());
+            сonnectbd = new SqlConnection(@"Data Source=Max;Initial Catalog=bug_bd;Integrated Security=True");
+            сonnectbd.Open();
+            richTextBox1.Text = String.Format("Версия сервера:{0} \n", сonnectbd.ServerVersion);
+            richTextBox1.Text += String.Format("Состояние соединения1:{0} \n", сonnectbd.State.ToString());
             сonnectbd.Close();
-            richTextBox1.Text += string.Format("Состояние соединения1:{0} \n", сonnectbd.State.ToString());
+            richTextBox1.Text += String.Format("Состояние соединения1:{0} \n", сonnectbd.State.ToString());
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику 
-            сonnectbd = new SqlConnection(connctSt );//
+            сonnectbd = new SqlConnection(connctSt);//
             сonnectbd.Open();//метод открытия подключения
-            richTextBox1.Text += String.Format("Версия сервера:{0} \n", сonnectWarehousebd.ServerVersion);
-            richTextBox1.Text += String.Format("Состояние соединения2:{0} \n", сonnectWarehousebd.State.ToString());//описание строки подключения и ее вывод в бокс
-            сonnectWarehousebd.Close();//метод закрытия подключения
-            richTextBox1.Text += String.Format("Состояние соединения2:{0} \n ", сonnectWarehousebd.State.ToString());//описание строки подключения и ее вывод в бокс
+            richTextBox1.Text += String.Format("Версия сервера:{0} \n", сonnectbd.ServerVersion);
+            richTextBox1.Text += String.Format("Состояние соединения2:{0} \n", сonnectbd.State.ToString());//описание строки подключения и ее вывод в бокс
+            сonnectbd.Close();//метод закрытия подключения
+            richTextBox1.Text += String.Format("Состояние соединения2:{0} \n ", сonnectbd.State.ToString());//описание строки подключения и ее вывод в бокс
 
 
         }
@@ -58,83 +57,83 @@ namespace Lab2
         private void button3_Click(object sender, EventArgs e)
         {
 
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
-            сonnectWarehousebd = new SqlConnection(connctSt);
-            сonnectWarehousebd.Open();//метод открытия подключения
-            SqlCommand cmd = new SqlCommand("SELECT count(clients.name)FROM clients WHERE clients.name = @NAME", сonnectWarehousebd);
+            string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику 
+            сonnectbd = new SqlConnection(connctSt);
+            сonnectbd.Open();//метод открытия подключения
+            SqlCommand cmd = new SqlCommand("SELECT count(product.products_name)FROM product WHERE product.products_name = @NAME", сonnectbd);
             cmd.Parameters.AddWithValue("@NAME", textBox1.Text);
-            richTextBox1.Text = String.Format("Название БД:{0} \n", сonnectWarehousebd.Database);
+            richTextBox1.Text = String.Format("Название БД:{0} \n", сonnectbd.Database);
             richTextBox1.Text += String.Format("Получено записей:{0} \n", cmd.ExecuteScalar());
-            сonnectWarehousebd.Close();
+            сonnectbd.Close();
 
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику
-            сonnectWarehousebd = new SqlConnection(connctSt);//
-            SqlCommand cmd = new SqlCommand("INSERT INTO clients(id_passport, id_client, name, surname, patronymic,phone) VALUES (6, 6, 5,5,5,2342344)", сonnectWarehousebd);
-            сonnectWarehousebd.Open();//метод открытия подключения
+            string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику
+            сonnectbd = new SqlConnection(connctSt);//
+            SqlCommand cmd = new SqlCommand("INSERT INTO write_off(products_name, date_off_end, total_cost_off, units_count) VALUES (печень, 12.12.2019, 5,5)", сonnectbd);
+            сonnectbd.Open();//метод открытия подключения
 
             richTextBox1.Text = String.Format("Записей добавлено:{0} \n", cmd.ExecuteNonQuery());
-            сonnectWarehousebd.Close();
+            сonnectbd.Close();
 
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику
-            сonnectWarehousebd = new SqlConnection(connctSt);
-            сonnectWarehousebd.Open();
-            cmd.Connection = сonnectWarehousebd;
-            cmd.CommandText = "SELECT * FROM clients ";
+            string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику
+            сonnectbd = new SqlConnection(connctSt);
+            сonnectbd.Open();
+            cmd.Connection = сonnectbd;
+            cmd.CommandText = "SELECT * FROM write_off ";
             SqlDataReader reader = cmd.ExecuteReader();
             int i = 0;
             while (reader.Read())
             {
                 i++;
-                richTextBox1.Text += String.Format("Данные о клиенте\n№{0}:\nИмя: {1} \nФамилия: {2}\nОтчество: {3} \n", i, reader[2], reader[3], reader[4]);
+                richTextBox1.Text += String.Format("Данные о товаре\n№{0}:\nИмя: {1} \nДата: {2}\nцена: {3} \n", i, reader[0], reader[1], reader[2]);
 
             }
             reader.Close();
-            сonnectWarehousebd.Close();
+            сonnectbd.Close();
 
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику
-            сonnectWarehousebd = new SqlConnection(connctSt);
-            сonnectWarehousebd.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM clients; SELECT* FROM passport", сonnectWarehousebd);
+            string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику
+            сonnectbd = new SqlConnection(connctSt);
+            сonnectbd.Open();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM write_off; SELECT* FROM product", сonnectbd);
             SqlDataReader reader = cmd.ExecuteReader();
             int i = 0;
-            richTextBox1.Text = "Данные о клиенте\n";
+            richTextBox1.Text = "Данные о товаре\n";
             while (reader.Read())
             {
                 i++;
-                richTextBox1.Text += String.Format("№{0}:\nИмя: {1} \nФамилия: {2}\nОтчество: {3} \n", i, reader[2], reader[3], reader[4]);
+                richTextBox1.Text += String.Format("Данные о товаре\n№{0}:\nИмя: {1} \nДата: {2}\nцена: {3} \n", i, reader[0], reader[1], reader[2]);
             }
             reader.NextResult();
-             i = 0;
-            richTextBox1.Text += "Данные о паспорте\n";
+            i = 0;
+            richTextBox1.Text += "Данные о товаре\n";
             while (reader.Read())
             {
                 i++;
-                richTextBox1.Text += String.Format("№{0}:\nВыдан: {1} \nДата рождения: {2}\nкем выдан: {3} \n", i, reader[2], reader[3], reader[4]);
+                richTextBox1.Text += String.Format("№{0}:\nИмя: {1} \narticle: {2}\n", i, reader[0], reader[2]);
             }
             reader.Close();
-            сonnectWarehousebd.Close();
+            сonnectbd.Close();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
-            сonnectWarehousebd = new SqlConnection(connctSt);
-            cmd = new SqlCommand("countClients", сonnectWarehousebd);
+            string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику 
+            сonnectbd = new SqlConnection(connctSt);
+            cmd = new SqlCommand("count", сonnectbd);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@name", textBox1.Text);
-            сonnectWarehousebd.Open();//метод открытия подключения
+            сonnectbd.Open();//метод открытия подключения
             SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             int i = 0;
             richTextBox1.Text = "Колличество клиетов с именем:" + textBox1.Text;
@@ -143,7 +142,7 @@ namespace Lab2
                 i++;
                 richTextBox1.Text += String.Format(": {0}", reader[0]);
             }
-            сonnectWarehousebd.Close();
+            сonnectbd.Close();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -153,19 +152,18 @@ namespace Lab2
 
         private void button8_Click(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
-            сonnectWarehousebd = new SqlConnection(connctSt);
-            cmd = new SqlCommand("ClientsBday", сonnectWarehousebd);
+            string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику 
+            сonnectbd = new SqlConnection(connctSt);
+            cmd = new SqlCommand("date", сonnectbd);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@date", dateTimePicker1.Value);
-            cmd.Parameters.Add("@id", SqlDbType.Int);
-            cmd.Parameters["@id"].Direction = ParameterDirection.Output;
-            сonnectWarehousebd.Open();//метод открытия подключения
+            cmd.Parameters.Add("@name", SqlDbType.Int);
+            cmd.Parameters["@name"].Direction = ParameterDirection.Output;
+            сonnectbd.Open();//метод открытия подключения
             cmd.ExecuteNonQuery();
-            сonnectWarehousebd.Close();
-            richTextBox1.Text = "id клиента с заданой датой рождения:";
-            richTextBox1.Text += String.Format("{0}",cmd.Parameters["@id"].Value.ToString());
-
+            richTextBox1.Text = "продукт с заданой датой:";
+            richTextBox1.Text += String.Format("{0}", cmd.Parameters["@name"].Value.ToString());
+            сonnectbd.Close();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -173,5 +171,5 @@ namespace Lab2
 
         }
     }
-    }
+}
 

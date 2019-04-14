@@ -32,5 +32,15 @@ namespace Lab2.Properties {
                 return ((string)(this["warehouseConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MAX;Initial Catalog=bug_bd;Integrated Security=True")]
+        public string bug_bdConnectionString {
+            get {
+                return ((string)(this["bug_bdConnectionString"]));
+            }
+        }
     }
 }
