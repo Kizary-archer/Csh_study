@@ -22,7 +22,7 @@ namespace Weblab5
             connectWarehousebd = new SqlConnection(connctSt);
             adapter = new SqlDataAdapter("SELECT * FROM [passport]", connectWarehousebd);
             adapter.Fill(ds, "passport");
-            GridView3.DataSource = ds.Tables["passport"];
+            GridView2.DataSource = ds.Tables["passport"];
             bild = new SqlCommandBuilder(adapter);
         }
 
