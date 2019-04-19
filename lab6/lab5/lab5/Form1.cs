@@ -4,6 +4,7 @@ using System.Data.SqlClient;// Пространство имен  являетс
 using System.Configuration;
 using System.Data;
 
+
 namespace lab5
 {
     public partial class Form1 : Form
@@ -35,7 +36,7 @@ namespace lab5
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+               
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -71,6 +72,12 @@ namespace lab5
         {
             ds.Tables["passport"].Rows[4]["issued_by"] = ds.Tables["passport"].Rows[4]["issued_by", DataRowVersion.Original];
             dataGridView1.DataSource = ds.Tables["passport"];
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form3 f3 = new Form3();
+            f3.Show();
         }
     }
 }

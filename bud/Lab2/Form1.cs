@@ -72,7 +72,7 @@ namespace Lab2
         {
             string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику
             сonnectbd = new SqlConnection(connctSt);//
-            SqlCommand cmd = new SqlCommand("INSERT INTO write_off(products_name, date_off_end, total_cost_off, units_count) VALUES (печень, 12.12.2019, 5,5)", сonnectbd);
+            SqlCommand cmd = new SqlCommand("INSERT INTO write_off(products_name, date_off_end, total_cost_off, units_count) VALUES (чай, 12.12.2017, 13,8)", сonnectbd);
             сonnectbd.Open();//метод открытия подключения
 
             richTextBox1.Text = String.Format("Записей добавлено:{0} \n", cmd.ExecuteNonQuery());
@@ -112,7 +112,7 @@ namespace Lab2
             while (reader.Read())
             {
                 i++;
-                richTextBox1.Text += String.Format("Данные о товаре\n№{0}:\nИмя: {1} \nДата: {2}\nцена: {3} \n", i, reader[0], reader[1], reader[2]);
+                richTextBox1.Text += String.Format("№{0}:\nИмя: {1} \nДата: {2}\nцена: {3} \n", i, reader[0], reader[1], reader[2]);
             }
             reader.NextResult();
             i = 0;
@@ -136,7 +136,7 @@ namespace Lab2
             сonnectbd.Open();//метод открытия подключения
             SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             int i = 0;
-            richTextBox1.Text = "Колличество клиетов с именем:" + textBox1.Text;
+            richTextBox1.Text = "Колличество товаров с названием:" + textBox1.Text;
             while (reader.Read())
             {
                 i++;
