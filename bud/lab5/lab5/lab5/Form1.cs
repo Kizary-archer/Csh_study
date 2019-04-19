@@ -41,11 +41,10 @@ namespace lab5
         private void button1_Click(object sender, EventArgs e)
         {
             DataRow dr = ds.Tables["list_of_products"].NewRow();
-            dr[0] = Convert.ToInt32(textBox1.Text);
-            dr[1] = Convert.ToInt32(textBox1.Text);
-            dr[2] = dateTimePicker1.Value;
-            dr[3] = dateTimePicker2.Value;
-            dr[4] = textBox2.Text;
+            dr[0] = textBox1.Text;
+            dr[1] = dateTimePicker1.Value;
+            dr[2] = Convert.ToInt32(textBox4.Text);
+            dr[3] = Convert.ToInt32(textBox2.Text);
             ds.Tables["list_of_products"].Rows.Add(dr);
         }
 
