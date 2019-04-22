@@ -110,7 +110,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 6;
-            this.dateTimePicker1.Value = new System.DateTime(2019, 4, 15, 2, 23, 34, 0);
+            this.dateTimePicker1.Value = new System.DateTime(2019, 4, 15, 0, 0, 0, 0);
             // 
             // dateTimePicker2
             // 
@@ -119,6 +119,7 @@
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker2.TabIndex = 7;
+            this.dateTimePicker2.Value = new System.DateTime(2019, 4, 20, 0, 0, 0, 0);
             // 
             // textBox1
             // 
