@@ -42,8 +42,6 @@ namespace lab7 {
         
         private global::System.Data.DataRelation relationFK_CONTRACT_ЕСТЬ_TARIFFS;
         
-        private global::System.Data.DataRelation relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS;
-        
         private global::System.Data.DataRelation relationFK_CONTRACT_СОДЕРЖИТ_STATUS_C;
         
         private global::System.Data.DataRelation relationFK_PASSPORT_RELATIONS_CLIENTS;
@@ -377,7 +375,6 @@ namespace lab7 {
                 }
             }
             this.relationFK_CONTRACT_ЕСТЬ_TARIFFS = this.Relations["FK_CONTRACT_ЕСТЬ_TARIFFS"];
-            this.relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS = this.Relations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"];
             this.relationFK_CONTRACT_СОДЕРЖИТ_STATUS_C = this.Relations["FK_CONTRACT_СОДЕРЖИТ_STATUS_C"];
             this.relationFK_PASSPORT_RELATIONS_CLIENTS = this.Relations["FK_PASSPORT_RELATIONS_CLIENTS"];
             this.relationFK_PRODUCT_В_CONTRACT = this.Relations["FK_PRODUCT_В_CONTRACT"];
@@ -413,10 +410,6 @@ namespace lab7 {
                         this.tabletariffs.id_tariffsColumn}, new global::System.Data.DataColumn[] {
                         this.tablecontracts.id_tariffsColumn}, false);
             this.Relations.Add(this.relationFK_CONTRACT_ЕСТЬ_TARIFFS);
-            this.relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS = new global::System.Data.DataRelation("FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS", new global::System.Data.DataColumn[] {
-                        this.tableclients.id_clientColumn}, new global::System.Data.DataColumn[] {
-                        this.tablecontracts.id_clientColumn}, false);
-            this.Relations.Add(this.relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS);
             this.relationFK_CONTRACT_СОДЕРЖИТ_STATUS_C = new global::System.Data.DataRelation("FK_CONTRACT_СОДЕРЖИТ_STATUS_C", new global::System.Data.DataColumn[] {
                         this.tablestatus_contracts.id_statusColumn}, new global::System.Data.DataColumn[] {
                         this.tablecontracts.id_statusColumn}, false);
@@ -1034,18 +1027,15 @@ namespace lab7 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public contractsRow AddcontractsRow(int id_contracts, clientsRow parentclientsRowByFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS, tariffsRow parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS, status_contractsRow parentstatus_contractsRowByFK_CONTRACT_СОДЕРЖИТ_STATUS_C, System.DateTime date_of_conclusion, string status) {
+            public contractsRow AddcontractsRow(int id_contracts, int id_client, tariffsRow parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS, status_contractsRow parentstatus_contractsRowByFK_CONTRACT_СОДЕРЖИТ_STATUS_C, System.DateTime date_of_conclusion, string status) {
                 contractsRow rowcontractsRow = ((contractsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id_contracts,
-                        null,
+                        id_client,
                         null,
                         null,
                         date_of_conclusion,
                         status};
-                if ((parentclientsRowByFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS != null)) {
-                    columnValuesArray[1] = parentclientsRowByFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS[1];
-                }
                 if ((parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS != null)) {
                     columnValuesArray[2] = parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS[0];
                 }
@@ -3184,17 +3174,6 @@ namespace lab7 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public contractsRow[] GetcontractsRows() {
-                if ((this.Table.ChildRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"] == null)) {
-                    return new contractsRow[0];
-                }
-                else {
-                    return ((contractsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public passportRow[] GetpassportRows() {
                 if ((this.Table.ChildRelations["FK_PASSPORT_RELATIONS_CLIENTS"] == null)) {
                     return new passportRow[0];
@@ -3329,17 +3308,6 @@ namespace lab7 {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_CONTRACT_ЕСТЬ_TARIFFS"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public clientsRow clientsRow {
-                get {
-                    return ((clientsRow)(this.GetParentRow(this.Table.ParentRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"]);
                 }
             }
             
@@ -7789,15 +7757,6 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private int UpdateUpdatedRows(warehouseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._clientsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._clientsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._status_contractsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.status_contracts.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -7813,6 +7772,15 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._tariffsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._clientsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._clientsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -7862,14 +7830,6 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private int UpdateInsertedRows(warehouseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._clientsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._clientsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._status_contractsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.status_contracts.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -7883,6 +7843,14 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._tariffsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._clientsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._clientsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -7960,6 +7928,14 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._clientsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._clientsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._tariffsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.tariffs.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -7973,14 +7949,6 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._status_contractsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._clientsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._clientsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

@@ -30,7 +30,7 @@ namespace lab7
             adaptercontracts = new SqlDataAdapter("SELECT contracts.* FROM contracts", connectWarehousebd);
             adapterclients.Fill(ds, "clients");
             adaptercontracts.Fill(ds, "contracts");
-            ds.Relations.Add("rel", ds.Tables["clients"].Columns["id_client"], ds.Tables["contracts"].Columns["id_contracts"]);//связь таблиц
+            ds.Relations.Add("rel", ds.Tables["clients"].Columns["id_client"], ds.Tables["contracts"].Columns["id_client"]);//связь таблиц
             bild = new SqlCommandBuilder(adaptercontracts);
             bindingSource1.DataSource = ds.clients;
             dataGridView1.DataSource = bindingSource1;
