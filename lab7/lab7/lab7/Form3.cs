@@ -9,7 +9,7 @@ namespace lab7
     {
         SqlConnection connectWarehousebd = new SqlConnection();//строка подключения для MSSQL
         SqlCommand cmd = new SqlCommand();
-        SqlDataAdapter adapterclients, adaptercontracts, adaptertariffs;
+        SqlDataAdapter adapterprod, adaptercontracts, adaptertariffs;
         warehouseDataSet ds = new warehouseDataSet();
         SqlCommandBuilder bild;
         public Form3()
@@ -22,11 +22,11 @@ namespace lab7
             string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
             SqlConnection connectWarehousebd = new SqlConnection(connctSt);
 
-            adapterclients = new SqlDataAdapter("SELECT clients.* FROM clients", connectWarehousebd);
+            adapterprod = new SqlDataAdapter("SELECT status_contracts.* FROM status_contracts", connectWarehousebd);
             adaptercontracts = new SqlDataAdapter("SELECT contracts.* FROM contracts", connectWarehousebd);
             adaptertariffs = new SqlDataAdapter("SELECT tariffs.* FROM tariffs", connectWarehousebd);
 
-            adapterclients.Fill(ds.clients);
+            adapterprod.Fill(ds.status_contracts);
             adaptercontracts.Fill(ds.contracts);
             adaptertariffs.Fill(ds.tariffs);
 
@@ -34,12 +34,15 @@ namespace lab7
             comboBox1.DataSource = bindingSource1;
             comboBox1.DisplayMember = "name_tariffs";
             comboBox1.ValueMember = "id_tariffs";
-            ds.Relations.Add("rel", ds.Tables["clients"].Columns["id_client"], ds.Tables["contracts"].Columns["id_client"]);//связь таблиц
-            bild = new SqlCommandBuilder(adaptercontracts);
+            ds.Relations.Add("relContract", ds.Tables["tariffs"].Columns["id_tariffs"] , ds.Tables["contracts"].Columns["id_tariffs"]);//связь таблиц
+            ds.Relations.Add("relprod", ds.Tables["contracts"].Columns["id_contracts"], ds.Tables["status_contracts"].Columns["id_contracts"]);//связь таблиц
+           // bild = new SqlCommandBuilder(adapterclients);
             bindingSource2.DataSource = bindingSource1;
-            bindingSource2.DataMember = "rel";
+            bindingSource2.DataMember = "relContract";
             dataGridView1.DataSource = bindingSource2;
+
             bindingSource3.DataSource = bindingSource2;
+            bindingSource3.DataMember = "relprod";
             dataGridView2.DataSource = bindingSource3;
         }
     }
