@@ -13,6 +13,7 @@ namespace lab8
         SqlDataAdapter adapter;
         warehouseDataSet ds = new warehouseDataSet();
         SqlCommandBuilder bild;
+        DataView dv;
         public Form1()
         {
             InitializeComponent();
@@ -25,19 +26,25 @@ namespace lab8
             adapter = new SqlDataAdapter("SELECT clients.* FROM clients", connectWarehousebd);
             adapter.Fill(ds, "clients");
             //dataGridView1.DataSource = ds.clients;
+
+            dv = new DataView(ds.clients, "", "", DataViewRowState.CurrentRows);
+
             
 
 
             foreach(DataColumn col in ds.clients.Columns)
             {
                 comboBox1.Items.Add(col.ColumnName);
+                comboBox2.Items.Add(col.ColumnName);
             }
 
             comboBox1.SelectedItem = "id_client";
+            comboBox2.SelectedItem = "id_client";
             ds.clients.DefaultView.Sort = "id_client";
-            //dv.Sort = "id_client";
+            dv.Sort = "id_client";
 
             dataGridView1.DataSource = ds.clients.DefaultView;
+            dataGridView2.DataSource = dv;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -67,13 +74,30 @@ namespace lab8
         {
             ds.clients.DefaultView.RowFilter = "";
             ds.clients.DefaultView.Sort = "";
-            // dataGridView1.DataSource = ds.clients.DefaultView;
-            //dataGridView1.Update();
         }
 
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (textBox2.Text != "")
+            {
+                string filter = String.Format("{0}> = '{1}'", comboBox2.SelectedItem.ToString(), textBox2.Text);
+                dv.RowFilter = filter;
+            }
+
+            string sort = comboBox1.SelectedItem.ToString();
+            if (checkBox2.Checked) sort += " DESC";
+            dv.Sort = sort;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            dv.RowFilter = "";
+            dv.Sort = "";
         }
     }
 }
