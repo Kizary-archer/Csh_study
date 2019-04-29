@@ -4,7 +4,6 @@ using System.Data.SqlClient;// Пространство имен  являетс
 using System.Configuration;
 using System.Data;
 
-
 namespace lab5
 {
     public partial class Form1 : Form
@@ -22,62 +21,64 @@ namespace lab5
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
+            string connctSt = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;//подключение к источнику 
             connectWarehousebd = new SqlConnection(connctSt);
-            adapter = new SqlDataAdapter("SELECT passport.* FROM passport", connectWarehousebd);
-            adapter.Fill(ds, "passport");
-            dataGridView1.DataSource = ds.Tables["passport"];
+            adapter = new SqlDataAdapter("SELECT list_of_products.* FROM list_of_products", connectWarehousebd);
+            adapter.Fill(ds, "list_of_products");
+            dataGridView1.DataSource = ds.Tables["list_of_products"];
             bild = new SqlCommandBuilder(adapter);
         }
         private void Form_Cloasing(object sender, EventArgs e)
         {
-            adapter.Update(ds, "passport");
+            adapter.Update(ds, "list_of_products");
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-               
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataRow dr = ds.Tables["passport"].NewRow();
-            dr[0] = Convert.ToInt32(textBox1.Text);
-            dr[1] = Convert.ToInt32(textBox1.Text);
-            dr[2] = dateTimePicker1.Value;
-            dr[3] = dateTimePicker2.Value;
-            dr[4] = textBox2.Text;
-            ds.Tables["passport"].Rows.Add(dr);
+            DataRow dr = ds.Tables["list_of_products"].NewRow();
+            dr[0] = textBox1.Text;
+            dr[1] = dateTimePicker1.Value;
+            dr[2] = Convert.ToInt32(textBox4.Text);
+            dr[3] = Convert.ToInt32(textBox2.Text);
+            ds.Tables["list_of_products"].Rows.Add(dr);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            ds.Tables["passport"].AcceptChanges();
-            ds.Tables["passport"].Rows[Convert.ToInt32(textBox3.Text)].Delete();
+            ds.Tables["list_of_products"].AcceptChanges();
+            ds.Tables["list_of_products"].Rows[Convert.ToInt32(textBox3.Text)].Delete();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ds.Tables["passport"].RejectChanges();
+            ds.Tables["list_of_products"].RejectChanges();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //ds.Tables["passport"].Rows[4]["issued_by"] = textBox2.Text;
-            //dataGridView1.DataSource = ds.Tables["passport"];
             dataGridView1[dataGridView1.CurrentCellAddress.X, dataGridView1.CurrentCellAddress.Y].Value = textBox2.Text;
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            ds.Tables["passport"].Rows[4]["issued_by"] = ds.Tables["passport"].Rows[4]["issued_by", DataRowVersion.Original];
-            dataGridView1.DataSource = ds.Tables["passport"];
+            ds.Tables["list_of_products"].Rows[2]["total_cost"] = ds.Tables["list_of_products"].Rows[2]["total_cost", DataRowVersion.Original];
+            dataGridView1.DataSource = ds.Tables["list_of_products"];
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
-            f3.Show();
+            Form2 f2 = new Form2();
+            f2.Show();
         }
     }
 }
