@@ -25,7 +25,6 @@ namespace lab8
             connectWarehousebd = new SqlConnection(connctSt);
             adapter = new SqlDataAdapter("SELECT clients.* FROM clients", connectWarehousebd);
             adapter.Fill(ds, "clients");
-            //dataGridView1.DataSource = ds.clients;
 
             dv = new DataView(ds.clients, "", "", DataViewRowState.CurrentRows);
 
@@ -98,6 +97,17 @@ namespace lab8
         {
             dv.RowFilter = "";
             dv.Sort = "";
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form2 f3 = new Form2();
+            f3.Show();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

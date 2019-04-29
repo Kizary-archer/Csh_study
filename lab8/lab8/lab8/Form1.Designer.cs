@@ -46,6 +46,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -125,9 +126,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(708, 156);
+            this.button2.Location = new System.Drawing.Point(708, 155);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 29);
+            this.button2.Size = new System.Drawing.Size(121, 30);
             this.button2.TabIndex = 8;
             this.button2.Text = "сбросить фильтр";
             this.button2.UseVisualStyleBackColor = true;
@@ -135,9 +136,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(708, 347);
+            this.button3.Location = new System.Drawing.Point(708, 346);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(121, 29);
+            this.button3.Size = new System.Drawing.Size(121, 30);
             this.button3.TabIndex = 17;
             this.button3.Text = "сбросить фильтр";
             this.button3.UseVisualStyleBackColor = true;
@@ -177,6 +178,7 @@
             this.checkBox2.TabIndex = 13;
             this.checkBox2.Text = "по убыванию";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // label4
             // 
@@ -213,11 +215,22 @@
             this.dataGridView2.Size = new System.Drawing.Size(540, 174);
             this.dataGridView2.TabIndex = 9;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(641, 401);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(124, 37);
+            this.button5.TabIndex = 18;
+            this.button5.Text = "Задание2";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 450);
+            this.ClientSize = new System.Drawing.Size(839, 450);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.textBox2);
@@ -266,6 +279,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Button button5;
     }
 }
 
