@@ -88,19 +88,6 @@ namespace lab9
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataRow row = ds.clients.NewRow();
-            row[0] = Convert.ToInt32(comboBox1.SelectedValue);
-            row[1] = Convert.ToInt32(ds.clients.Rows.Count + 1);
-            row[2] = textBox2.Text;
-            row[3] = textBox3.Text;
-            row[4] = textBox4.Text;
-            row[5] = Convert.ToInt32(textBox5.Text);
-            ds.clients.Rows.Add(row);
-            if (ds.clients.GetChanges(DataRowState.Added) != null)
-            {
-                adapterclient.Update(ds.clients);
-                bindingSource1.MoveLast();
-            }
 
             label1.Visible = true;
             label2.Visible = true;
@@ -132,6 +119,19 @@ namespace lab9
 
         private void button5_Click(object sender, EventArgs e)
         {
+            DataRow row = ds.clients.NewRow();
+            row[0] = Convert.ToInt32(comboBox1.SelectedValue);
+            row[1] = Convert.ToInt32(ds.clients.Rows.Count + 1);
+            row[2] = textBox2.Text;
+            row[3] = textBox3.Text;
+            row[4] = textBox4.Text;
+            row[5] = Convert.ToInt32(textBox5.Text);
+            ds.clients.Rows.Add(row);
+            if (ds.clients.GetChanges(DataRowState.Added) != null)
+            {
+                adapterclient.Update(ds.clients);
+                bindingSource1.MoveLast();
+            }
             label1.Visible = false;
             label2.Visible = false;
             label7.Visible = false;
@@ -145,12 +145,12 @@ namespace lab9
             button2.Visible = false;
             button3.Visible = false;
             button4.Visible = false;
+            button5.Visible = false;
             textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
             textBox5.Text = "";
             comboBox1.Visible = false;
-            
         }
 
         private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
