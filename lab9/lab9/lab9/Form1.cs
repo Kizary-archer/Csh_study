@@ -40,6 +40,7 @@ namespace lab9
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            button1.Visible = false;
             string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
             connectWarehousebd = new SqlConnection(connctSt);
             adapterclient = new SqlDataAdapter("SELECT clients.* FROM clients", connectWarehousebd);
@@ -75,8 +76,14 @@ namespace lab9
             //удаление строк
             adapterclient.DeleteCommand = new SqlCommand("delete from clients where id_client = @id_client", connectWarehousebd);
             adapterclient.DeleteCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
-
-
+            //обновление строк
+            adapterclient.UpdateCommand = new SqlCommand("update clients set id_passport= @id_passport,id_client = @id_client,name = @name,surname = @surname,patronymic = @patronymic,phone = @phone where id_client = @id_client", connectWarehousebd);
+            adapterclient.UpdateCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
+            adapterclient.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
+            adapterclient.UpdateCommand.Parameters.Add("@name", SqlDbType.VarChar, 30, "name");
+            adapterclient.UpdateCommand.Parameters.Add("@surname", SqlDbType.VarChar, 30, "surname");
+            adapterclient.UpdateCommand.Parameters.Add("@patronymic", SqlDbType.VarChar, 30, "patronymic");
+            adapterclient.UpdateCommand.Parameters.Add("@phone", SqlDbType.Int, 4, "phone");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -89,8 +96,26 @@ namespace lab9
             row[4] = textBox4.Text;
             row[5] = Convert.ToInt32(textBox5.Text);
             ds.clients.Rows.Add(row);
-            if (ds.clients.GetChanges(DataRowState.Added) != null) adapterclient.Update(ds.clients);
-            bindingSource1.MoveLast();
+            if (ds.clients.GetChanges(DataRowState.Added) != null)
+            {
+                adapterclient.Update(ds.clients);
+                bindingSource1.MoveLast();
+            }
+
+            label1.Visible = true;
+            label2.Visible = true;
+            label7.Visible = true;
+            label8.Visible = true;
+            label9.Visible = true;
+            textBox1.Visible = true;
+            textBox6.Visible = true;
+            dateTimePicker1.Visible = true;
+            dateTimePicker2.Visible = true;
+            button1.Visible = false;
+            button2.Visible = true;
+            button3.Visible = true;
+            button4.Visible = true;
+            comboBox1.Visible = true;
 
         }
 
@@ -104,9 +129,38 @@ namespace lab9
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+
+        private void button5_Click(object sender, EventArgs e)
         {
-            if (ds.clients.GetChanges() != null) adapterclient.Update(ds.clients);
+            label1.Visible = false;
+            label2.Visible = false;
+            label7.Visible = false;
+            label8.Visible = false;
+            label9.Visible = false;
+            textBox1.Visible = false;
+            textBox6.Visible = false;
+            dateTimePicker1.Visible = false;
+            dateTimePicker2.Visible = false;
+            button1.Visible = true;
+            button2.Visible = false;
+            button3.Visible = false;
+            button4.Visible = false;
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            textBox5.Text = "";
+            comboBox1.Visible = false;
+            
         }
+
+        private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            bindingSource1.Position -= 1;
+            bindingSource1.EndEdit();
+           // if (ds.clients.GetChanges(DataRowState.Added) == null)
+              adapterclient.Update(ds.clients);
+          
+        }
+
     }
 }

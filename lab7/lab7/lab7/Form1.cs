@@ -25,7 +25,7 @@ namespace lab7
             connectWarehousebd = new SqlConnection(connctSt);
             adapter = new SqlDataAdapter("SELECT clients.* FROM clients", connectWarehousebd);
             adapter.Fill(ds, "clients");
-            bindingSource1.DataSource = ds.Tables[0];
+            bindingSource1.DataSource = ds.clients;
             textBox1.DataBindings.Add("Text", bindingSource1, "name");
             textBox2.DataBindings.Add("Text", bindingSource1, "surname");
             textBox3.DataBindings.Add("Text", bindingSource1, "patronymic");

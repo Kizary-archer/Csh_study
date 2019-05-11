@@ -53,6 +53,7 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.button5 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).BeginInit();
             this.SuspendLayout();
@@ -134,7 +135,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(15, 340);
+            this.button1.Location = new System.Drawing.Point(12, 374);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 11;
@@ -187,7 +188,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(129, 340);
+            this.button4.Location = new System.Drawing.Point(129, 374);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(84, 23);
             this.button4.TabIndex = 17;
@@ -247,11 +248,22 @@
             this.dateTimePicker1.TabIndex = 24;
             this.dateTimePicker1.Value = new System.DateTime(2019, 5, 6, 0, 0, 0, 0);
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(27, 324);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(162, 43);
+            this.button5.TabIndex = 25;
+            this.button5.Text = "новый клиент";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.textBox1);
@@ -276,6 +288,7 @@
             this.Controls.Add(this.comboBox1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing_1);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource2)).EndInit();
@@ -310,6 +323,7 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.BindingSource bindingSource2;
+        private System.Windows.Forms.Button button5;
     }
 }
 

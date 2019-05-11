@@ -42,17 +42,11 @@ namespace lab9 {
         
         private global::System.Data.DataRelation relationFK_CONTRACT_ЕСТЬ_TARIFFS;
         
-        private global::System.Data.DataRelation relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS;
-        
         private global::System.Data.DataRelation relationFK_CONTRACT_СОДЕРЖИТ_STATUS_C;
         
         private global::System.Data.DataRelation relationFK_PRODUCT_В_CONTRACT;
         
-        private global::System.Data.DataRelation relationFK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS;
-        
         private global::System.Data.DataRelation relationFK_PRODUCT_ХРАНИТСЯ_STORAGE_;
-        
-        private global::System.Data.DataRelation relationFK_PASSPORT_RELATIONS_CLIENTS;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -377,12 +371,9 @@ namespace lab9 {
                 }
             }
             this.relationFK_CONTRACT_ЕСТЬ_TARIFFS = this.Relations["FK_CONTRACT_ЕСТЬ_TARIFFS"];
-            this.relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS = this.Relations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"];
             this.relationFK_CONTRACT_СОДЕРЖИТ_STATUS_C = this.Relations["FK_CONTRACT_СОДЕРЖИТ_STATUS_C"];
             this.relationFK_PRODUCT_В_CONTRACT = this.Relations["FK_PRODUCT_В_CONTRACT"];
-            this.relationFK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS = this.Relations["FK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS"];
             this.relationFK_PRODUCT_ХРАНИТСЯ_STORAGE_ = this.Relations["FK_PRODUCT_ХРАНИТСЯ_STORAGE_"];
-            this.relationFK_PASSPORT_RELATIONS_CLIENTS = this.Relations["FK_PASSPORT_RELATIONS_CLIENTS"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -413,10 +404,6 @@ namespace lab9 {
                         this.tabletariffs.id_tariffsColumn}, new global::System.Data.DataColumn[] {
                         this.tablecontracts.id_tariffsColumn}, false);
             this.Relations.Add(this.relationFK_CONTRACT_ЕСТЬ_TARIFFS);
-            this.relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS = new global::System.Data.DataRelation("FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS", new global::System.Data.DataColumn[] {
-                        this.tableclients.id_clientColumn}, new global::System.Data.DataColumn[] {
-                        this.tablecontracts.id_clientColumn}, false);
-            this.Relations.Add(this.relationFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS);
             this.relationFK_CONTRACT_СОДЕРЖИТ_STATUS_C = new global::System.Data.DataRelation("FK_CONTRACT_СОДЕРЖИТ_STATUS_C", new global::System.Data.DataColumn[] {
                         this.tablestatus_contracts.id_statusColumn}, new global::System.Data.DataColumn[] {
                         this.tablecontracts.id_statusColumn}, false);
@@ -425,18 +412,10 @@ namespace lab9 {
                         this.tablecontracts.id_contractsColumn}, new global::System.Data.DataColumn[] {
                         this.tableproduct.id_contractsColumn}, false);
             this.Relations.Add(this.relationFK_PRODUCT_В_CONTRACT);
-            this.relationFK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS = new global::System.Data.DataRelation("FK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS", new global::System.Data.DataColumn[] {
-                        this.tableclients.id_clientColumn}, new global::System.Data.DataColumn[] {
-                        this.tableproduct.id_clientColumn}, false);
-            this.Relations.Add(this.relationFK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS);
             this.relationFK_PRODUCT_ХРАНИТСЯ_STORAGE_ = new global::System.Data.DataRelation("FK_PRODUCT_ХРАНИТСЯ_STORAGE_", new global::System.Data.DataColumn[] {
                         this.tablestorage_cells.id_cellColumn}, new global::System.Data.DataColumn[] {
                         this.tableproduct.id_cellColumn}, false);
             this.Relations.Add(this.relationFK_PRODUCT_ХРАНИТСЯ_STORAGE_);
-            this.relationFK_PASSPORT_RELATIONS_CLIENTS = new global::System.Data.DataRelation("FK_PASSPORT_RELATIONS_CLIENTS", new global::System.Data.DataColumn[] {
-                        this.tableclients.id_clientColumn}, new global::System.Data.DataColumn[] {
-                        this.tablepassport.id_clientColumn}, false);
-            this.Relations.Add(this.relationFK_PASSPORT_RELATIONS_CLIENTS);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -719,13 +698,6 @@ namespace lab9 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public clientsRow FindByid_client(int id_client) {
-                return ((clientsRow)(this.Rows.Find(new object[] {
-                            id_client})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public override global::System.Data.DataTable Clone() {
                 clientsDataTable cln = ((clientsDataTable)(base.Clone()));
                 cln.InitVars();
@@ -764,10 +736,7 @@ namespace lab9 {
                 base.Columns.Add(this.columnpatronymic);
                 this.columnphone = new global::System.Data.DataColumn("phone", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnphone);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnid_client}, true));
                 this.columnid_client.AllowDBNull = false;
-                this.columnid_client.Unique = true;
                 this.columnname.MaxLength = 30;
                 this.columnsurname.MaxLength = 30;
                 this.columnpatronymic.MaxLength = 30;
@@ -1034,18 +1003,15 @@ namespace lab9 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public contractsRow AddcontractsRow(int id_contracts, clientsRow parentclientsRowByFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS, tariffsRow parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS, status_contractsRow parentstatus_contractsRowByFK_CONTRACT_СОДЕРЖИТ_STATUS_C, System.DateTime date_of_conclusion, string status) {
+            public contractsRow AddcontractsRow(int id_contracts, int id_client, tariffsRow parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS, status_contractsRow parentstatus_contractsRowByFK_CONTRACT_СОДЕРЖИТ_STATUS_C, System.DateTime date_of_conclusion, string status) {
                 contractsRow rowcontractsRow = ((contractsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id_contracts,
-                        null,
+                        id_client,
                         null,
                         null,
                         date_of_conclusion,
                         status};
-                if ((parentclientsRowByFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS != null)) {
-                    columnValuesArray[1] = parentclientsRowByFK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS[1];
-                }
                 if ((parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS != null)) {
                     columnValuesArray[2] = parenttariffsRowByFK_CONTRACT_ЕСТЬ_TARIFFS[0];
                 }
@@ -1362,17 +1328,14 @@ namespace lab9 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public passportRow AddpassportRow(int id_passport, clientsRow parentclientsRowByFK_PASSPORT_RELATIONS_CLIENTS, System.DateTime Date_issues, System.DateTime Date_of_birth, string issued_by) {
+            public passportRow AddpassportRow(int id_passport, int id_client, System.DateTime Date_issues, System.DateTime Date_of_birth, string issued_by) {
                 passportRow rowpassportRow = ((passportRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id_passport,
-                        null,
+                        id_client,
                         Date_issues,
                         Date_of_birth,
                         issued_by};
-                if ((parentclientsRowByFK_PASSPORT_RELATIONS_CLIENTS != null)) {
-                    columnValuesArray[1] = parentclientsRowByFK_PASSPORT_RELATIONS_CLIENTS[1];
-                }
                 rowpassportRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowpassportRow);
                 return rowpassportRow;
@@ -1700,21 +1663,18 @@ namespace lab9 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public productRow AddproductRow(storage_cellsRow parentstorage_cellsRowByFK_PRODUCT_ХРАНИТСЯ_STORAGE_, int id_product, clientsRow parentclientsRowByFK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS, string name_product, int number_product, contractsRow parentcontractsRowByFK_PRODUCT_В_CONTRACT, int id_cells) {
+            public productRow AddproductRow(storage_cellsRow parentstorage_cellsRowByFK_PRODUCT_ХРАНИТСЯ_STORAGE_, int id_product, int id_client, string name_product, int number_product, contractsRow parentcontractsRowByFK_PRODUCT_В_CONTRACT, int id_cells) {
                 productRow rowproductRow = ((productRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         id_product,
-                        null,
+                        id_client,
                         name_product,
                         number_product,
                         null,
                         id_cells};
                 if ((parentstorage_cellsRowByFK_PRODUCT_ХРАНИТСЯ_STORAGE_ != null)) {
                     columnValuesArray[0] = parentstorage_cellsRowByFK_PRODUCT_ХРАНИТСЯ_STORAGE_[0];
-                }
-                if ((parentclientsRowByFK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS != null)) {
-                    columnValuesArray[2] = parentclientsRowByFK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS[1];
                 }
                 if ((parentcontractsRowByFK_PRODUCT_В_CONTRACT != null)) {
                     columnValuesArray[5] = parentcontractsRowByFK_PRODUCT_В_CONTRACT[0];
@@ -3181,39 +3141,6 @@ namespace lab9 {
             public void SetphoneNull() {
                 this[this.tableclients.phoneColumn] = global::System.Convert.DBNull;
             }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public contractsRow[] GetcontractsRows() {
-                if ((this.Table.ChildRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"] == null)) {
-                    return new contractsRow[0];
-                }
-                else {
-                    return ((contractsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public productRow[] GetproductRows() {
-                if ((this.Table.ChildRelations["FK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS"] == null)) {
-                    return new productRow[0];
-                }
-                else {
-                    return ((productRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS"])));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public passportRow[] GetpassportRows() {
-                if ((this.Table.ChildRelations["FK_PASSPORT_RELATIONS_CLIENTS"] == null)) {
-                    return new passportRow[0];
-                }
-                else {
-                    return ((passportRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PASSPORT_RELATIONS_CLIENTS"])));
-                }
-            }
         }
         
         /// <summary>
@@ -3329,17 +3256,6 @@ namespace lab9 {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_CONTRACT_ЕСТЬ_TARIFFS"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public clientsRow clientsRow {
-                get {
-                    return ((clientsRow)(this.GetParentRow(this.Table.ParentRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_CONTRACT_ЗАКЛЮЧАЕТ_CLIENTS"]);
                 }
             }
             
@@ -3517,17 +3433,6 @@ namespace lab9 {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public clientsRow clientsRow {
-                get {
-                    return ((clientsRow)(this.GetParentRow(this.Table.ParentRelations["FK_PASSPORT_RELATIONS_CLIENTS"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_PASSPORT_RELATIONS_CLIENTS"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool Isid_clientNull() {
                 return this.IsNull(this.tablepassport.id_clientColumn);
             }
@@ -3699,17 +3604,6 @@ namespace lab9 {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_PRODUCT_В_CONTRACT"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public clientsRow clientsRow {
-                get {
-                    return ((clientsRow)(this.GetParentRow(this.Table.ParentRelations["FK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_PRODUCT_ПРИНАДЛЕЖ_CLIENTS"]);
                 }
             }
             
@@ -4836,14 +4730,6 @@ SELECT id_passport, id_client, name, surname, patronymic, phone FROM clients WHE
                     this.Adapter.UpdateCommand.Connection.Close();
                 }
             }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> id_passport, string name, string surname, string patronymic, global::System.Nullable<int> phone, global::System.Nullable<int> Original_id_passport, int Original_id_client, string Original_name, string Original_surname, string Original_patronymic, global::System.Nullable<int> Original_phone) {
-            return this.Update(id_passport, Original_id_client, name, surname, patronymic, phone, Original_id_passport, Original_id_client, Original_name, Original_surname, Original_patronymic, Original_phone);
         }
     }
     
@@ -7789,15 +7675,6 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private int UpdateUpdatedRows(warehouseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._clientsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._clientsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._status_contractsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.status_contracts.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -7834,6 +7711,15 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._clientsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._clientsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._passportTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.passport.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -7862,14 +7748,6 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
         private int UpdateInsertedRows(warehouseDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
-            if ((this._clientsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._clientsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._status_contractsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.status_contracts.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -7899,6 +7777,14 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._storage_cellsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._clientsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._clientsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -7944,6 +7830,14 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._clientsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._clientsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._storage_cellsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.storage_cells.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -7973,14 +7867,6 @@ SELECT id_tariffs, name_tariffs, description, price FROM tariffs WHERE (id_tarif
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._status_contractsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._clientsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.clients.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._clientsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
