@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
+using System.Xml;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
@@ -58,6 +54,38 @@ namespace lab_10
             bindingSource2.DataMember = "full_client";
             dataGridView2.DataSource = bindingSource2;
             ds.Relations["full_client"].Nested = true;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Visible = true;
+            SqlCommand cmd = new SqlCommand("select * from clients for xml auto, elements", (SqlConnection)connectWarehousebd);
+            XmlReader reader;
+            StringBuilder str = new StringBuilder();
+            connectWarehousebd.Open();
+            //выполнение sql команды select c предложение  for XML
+            reader = cmd.ExecuteXmlReader();
+
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.Element:
+                        str.Append("<" + reader.Name + ">");
+                        break;
+                    case XmlNodeType.EndElement:
+                        str.Append("</" + reader.Name + ">" + "\n\r");
+                        break;
+                    case XmlNodeType.Text:
+                        str.Append(reader.Value);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            connectWarehousebd.Close();
+            richTextBox1.Text = str.ToString();
 
         }
     }
