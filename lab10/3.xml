@@ -1,0 +1,62 @@
+<?xml version="1.0" standalone="yes"?>
+<warehouseDataSet xmlns="http://tempuri.org/warehouseDataSet.xsd">
+  <clients>
+    <id_passport>1</id_passport>
+    <id_client>1</id_client>
+    <name>Глеб</name>
+    <surname>Сильков</surname>
+    <patronymic>Александрович</patronymic>
+    <phone>8822</phone>
+  </clients>
+  <clients>
+    <id_passport>2</id_passport>
+    <id_client>2</id_client>
+    <name>Максим</name>
+    <surname>Фомин</surname>
+    <patronymic>Борисович</patronymic>
+    <phone>5352523</phone>
+  </clients>
+  <clients>
+    <id_passport>3</id_passport>
+    <id_client>3</id_client>
+    <name>Олег</name>
+    <surname>Смирнов</surname>
+    <patronymic>Максимович</patronymic>
+    <phone>2423123</phone>
+  </clients>
+  <clients>
+    <id_passport>4</id_passport>
+    <id_client>4</id_client>
+    <name>Максим</name>
+    <surname>Фомин</surname>
+    <patronymic>Борисович</patronymic>
+    <phone>5352523</phone>
+ 
+  </clients>
+  <clients>
+    <id_passport>5</id_passport>
+    <id_client>5</id_client>
+    <name>Сергей</name>
+    <surname>Сидоров</surname>
+    <patronymic>Борисович</patronymic>
+    <phone>5352523</phone>
+
+  </clients>
+  <clients>
+    <id_passport>6</id_passport>
+    <id_client>6</id_client>
+    <name>Вадим</name>
+    <surname>Венскель</surname>
+    <patronymic>Вадим</patronymic>
+    <phone>2323323</phone>
+
+  </clients>
+  <clients>
+    <id_passport>6</id_passport>
+    <id_client>7</id_client>
+    <name>Александр</name>
+    <surname>Сухарев</surname>
+    <patronymic>Николаевич</patronymic>
+    <phone>32323</phone>
+  </clients>
+</warehouseDataSet>

@@ -4,6 +4,7 @@ using System.Xml;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+//using Excel = PowerPivotExcelClientAddInLib;
 
 namespace lab_10
 {
@@ -86,6 +87,57 @@ namespace lab_10
             }
             connectWarehousebd.Close();
             richTextBox1.Text = str.ToString();
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            /*Excel.Application ExcelApp = new Excel.Application(); //открываем новое приложение excel
+            Excel.Workbook ExcelWorkbook; //создаем новую книгу
+            Excel.Worksheet ExcelWorksheet; //создаем новый лист
+            ExcelWorkbook = ExcelApp.Workbooks.Add(); //добавляем книгу в приложение
+            ExcelWorksheet = (Excel.Worksheet)ExcelWorkbook.Worksheets.get_Item(1); //используем первый лист в книге
+            for (int i = 1; i < dataGridView2.Columns.Count + 1; i++) //идем по столбцам первой строки
+            {
+                ExcelWorksheet.Cells[1, i] = dataGridView2.Columns[i - 1].HeaderText; //добавляем названия стобцов
+            }
+            for (int i = 0; i < dataGridView2.Rows.Count - 1; i++) //идем по строкам таблицы
+            {
+                for (int j = 0; j < dataGridView2.Columns.Count; j++) //идем по столбцам
+                {
+                    ExcelWorksheet.Cells[i + 2, j + 1] = dataGridView2.Rows[i].Cells[j].Value.ToString(); //заносим знаение в ячейки
+                }
+            }
+            ExcelApp.Visible = true; //показываем приложение excel*/
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = null;
+            dataGridView2.DataSource = null;
+            ds.Clear();
+            richTextBox1.Clear();
+            bindingSource1.DataSource = ds.clients;
+            bindingSource2.DataSource = bindingSource1;
+            bindingSource2.DataMember = "full_client";
+         
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            warehouseDataSet ds2 = new warehouseDataSet();
+            openFileDialog1.Title = "Выберите XML файлы";
+            openFileDialog1.Filter = "XML(*.xml)|*.xml|All files(*.*)|*.*";
+
+
+            if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
+            {
+                ds2.ReadXml(openFileDialog1.FileName);
+            }
+            bindingSource1.DataSource = ds2.clients; 
+            dataGridView1.DataSource = bindingSource1;
+            dataGridView2.DataSource = bindingSource2;
 
         }
     }
