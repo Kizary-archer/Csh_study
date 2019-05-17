@@ -18,7 +18,6 @@ namespace lab9
         SqlCommand cmd = new SqlCommand();
         SqlDataAdapter adapterclient,adapterpass;
         warehouseDataSet ds = new warehouseDataSet();
-        SqlCommandBuilder bild;
         public Form1()
         {
             InitializeComponent();
@@ -59,11 +58,6 @@ namespace lab9
             dateTimePicker2.DataBindings.Add("text", bindingSource2, "Date_issues");
             textBox1.DataBindings.Add("text", bindingSource2, "issued_by");
 
-            comboBox1.DataSource = ds.passport;
-            comboBox1.ValueMember = "id_passport";
-            comboBox1.DisplayMember = "id_passport";
-            comboBox1.DataBindings.Add("text", bindingSource2, "id_passport");
-
             //настройка адаптера на вставку
             adapterclient.InsertCommand = new SqlCommand("insert into clients values (@id_passport,@id_client,@name,@surname,@patronymic,@phone)", connectWarehousebd);
             adapterclient.InsertCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
@@ -73,9 +67,19 @@ namespace lab9
             adapterclient.InsertCommand.Parameters.Add("@patronymic", SqlDbType.VarChar, 30, "patronymic");
             adapterclient.InsertCommand.Parameters.Add("@phone", SqlDbType.Int, 4, "phone");
 
+            adapterpass.InsertCommand = new SqlCommand("insert into passport values (@id_passport,@id_client,@Date_issues,@Date_of_birth,@issued_by)", connectWarehousebd);
+            adapterpass.InsertCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
+            adapterpass.InsertCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
+            adapterpass.InsertCommand.Parameters.Add("@Date_issues", SqlDbType.Date, 30, "Date_issues");
+            adapterpass.InsertCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
+            adapterpass.InsertCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
+
             //удаление строк
             adapterclient.DeleteCommand = new SqlCommand("delete from clients where id_client = @id_client", connectWarehousebd);
             adapterclient.DeleteCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
+
+            adapterpass.DeleteCommand = new SqlCommand("delete from passport where id_client = @id_client", connectWarehousebd);
+            adapterpass.DeleteCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             //обновление строк
             adapterclient.UpdateCommand = new SqlCommand("update clients set id_passport= @id_passport,id_client = @id_client,name = @name,surname = @surname,patronymic = @patronymic,phone = @phone where id_client = @id_client", connectWarehousebd);
             adapterclient.UpdateCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
@@ -84,17 +88,19 @@ namespace lab9
             adapterclient.UpdateCommand.Parameters.Add("@surname", SqlDbType.VarChar, 30, "surname");
             adapterclient.UpdateCommand.Parameters.Add("@patronymic", SqlDbType.VarChar, 30, "patronymic");
             adapterclient.UpdateCommand.Parameters.Add("@phone", SqlDbType.Int, 4, "phone");
+
+            adapterpass.UpdateCommand = new SqlCommand("update passport set id_passport= @id_passport,id_client = @id_client,Date_issues = @Date_issues,Date_of_birth = @Date_of_birth,issued_by = @issued_by", connectWarehousebd);
+            adapterpass.UpdateCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
+            adapterpass.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
+            adapterpass.UpdateCommand.Parameters.Add("@Date_issues", SqlDbType.Date, 30, "Date_issues");
+            adapterpass.UpdateCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
+            adapterpass.UpdateCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            button5.Visible = true;
             label1.Visible = true;
-            label2.Visible = true;
-            label7.Visible = true;
-            label8.Visible = true;
-            label9.Visible = true;
-            textBox1.Visible = true;
             textBox6.Visible = true;
             dateTimePicker1.Visible = true;
             dateTimePicker2.Visible = true;
@@ -102,15 +108,18 @@ namespace lab9
             button2.Visible = true;
             button3.Visible = true;
             button4.Visible = true;
-            comboBox1.Visible = true;
-
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             bindingSource1.RemoveCurrent();
-            if (ds.clients.GetChanges(DataRowState.Deleted) != null) adapterclient.Update(ds.clients);
-
+            bindingSource2.RemoveCurrent();
+            if (ds.clients.GetChanges(DataRowState.Deleted) != null)
+            {
+                adapterpass.Update(ds.passport);
+                adapterclient.Update(ds.clients);
+                
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,27 +129,30 @@ namespace lab9
         private void button5_Click(object sender, EventArgs e)
         {
             DataRow row = ds.clients.NewRow();
-            row[0] = Convert.ToInt32(comboBox1.SelectedValue);
+            DataRow rowpass = ds.passport.NewRow();
+            row[0] = Convert.ToInt32(ds.clients.Rows.Count + 1);
             row[1] = Convert.ToInt32(ds.clients.Rows.Count + 1);
             row[2] = textBox2.Text;
             row[3] = textBox3.Text;
             row[4] = textBox4.Text;
             row[5] = Convert.ToInt32(textBox5.Text);
+
+            rowpass[0] = Convert.ToInt32(ds.passport.Rows.Count + 1);
+            rowpass[1] = Convert.ToInt32(ds.passport.Rows.Count + 1);
+            rowpass[2] = dateTimePicker1.Value;
+            rowpass[3] = dateTimePicker2.Value;
+            rowpass[4] = textBox1.Text;
             ds.clients.Rows.Add(row);
+            ds.passport.Rows.Add(rowpass);
             if (ds.clients.GetChanges(DataRowState.Added) != null)
             {
                 adapterclient.Update(ds.clients);
+                adapterpass.Update(ds.passport);
                 bindingSource1.MoveLast();
+                bindingSource2.MoveLast();
             }
             label1.Visible = false;
-            label2.Visible = false;
-            label7.Visible = false;
-            label8.Visible = false;
-            label9.Visible = false;
-            textBox1.Visible = false;
             textBox6.Visible = false;
-            dateTimePicker1.Visible = false;
-            dateTimePicker2.Visible = false;
             button1.Visible = true;
             button2.Visible = false;
             button3.Visible = false;
@@ -150,16 +162,25 @@ namespace lab9
             textBox3.Text = "";
             textBox4.Text = "";
             textBox5.Text = "";
-            comboBox1.Visible = false;
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void Form1_FormClosing_1(object sender, FormClosingEventArgs e)
         {
             bindingSource1.Position -= 1;
             bindingSource1.EndEdit();
-           // if (ds.clients.GetChanges(DataRowState.Added) == null)
-              adapterclient.Update(ds.clients);
-          
+            bindingSource2.Position -= 1;
+            bindingSource2.EndEdit();
+            // if (ds.clients.GetChanges(DataRowState.Added) == null)
+            adapterpass.Update(ds.passport);
+            adapterclient.Update(ds.clients);
+             bindingSource1.MoveLast();
+            bindingSource2.MoveLast();
+
         }
 
     }

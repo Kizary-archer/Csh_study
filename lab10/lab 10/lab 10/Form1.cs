@@ -137,10 +137,18 @@ namespace lab_10
             if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
             {
                 ds2.ReadXml(openFileDialog1.FileName);
+
+
+                dataGridView1.DataSource = bindingSource1;
+                dataGridView2.DataSource = bindingSource2;
+
             }
-            bindingSource1.DataSource = ds2.clients; 
-            dataGridView1.DataSource = bindingSource1;
-            dataGridView2.DataSource = bindingSource2;
+
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }

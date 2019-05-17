@@ -49,8 +49,16 @@
     <phone>2323323</phone>
   </clients>
   <clients>
-    <id_passport>6</id_passport>
+    <id_passport>7</id_passport>
     <id_client>7</id_client>
+    <name>Александр</name>
+    <surname>Сухарев</surname>
+    <patronymic>Николаевич</patronymic>
+    <phone>32323</phone>
+  </clients>
+  <clients>
+    <id_passport>8</id_passport>
+    <id_client>8</id_client>
     <name>Александр</name>
     <surname>Сухарев</surname>
     <patronymic>Николаевич</patronymic>
@@ -97,5 +105,19 @@
     <Date_issues>2004-11-11T00:00:00+03:00</Date_issues>
     <Date_of_birth>2004-11-11T00:00:00+03:00</Date_of_birth>
     <issued_by>тп 8</issued_by>
+  </passport>
+  <passport>
+    <id_passport>7</id_passport>
+    <id_client>7</id_client>
+    <Date_issues>2344-03-03T00:00:00+03:00</Date_issues>
+    <Date_of_birth>2344-03-03T00:00:00+03:00</Date_of_birth>
+    <issued_by>ng5</issued_by>
+  </passport>
+  <passport>
+    <id_passport>8</id_passport>
+    <id_client>8</id_client>
+    <Date_issues>2344-03-03T00:00:00+03:00</Date_issues>
+    <Date_of_birth>2344-03-03T00:00:00+03:00</Date_of_birth>
+    <issued_by>ng5</issued_by>
   </passport>
 </warehouseDataSet>

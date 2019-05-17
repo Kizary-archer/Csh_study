@@ -91,11 +91,33 @@
     </passport>
   </clients>
   <clients>
-    <id_passport>6</id_passport>
+    <id_passport>7</id_passport>
     <id_client>7</id_client>
     <name>Александр</name>
     <surname>Сухарев</surname>
     <patronymic>Николаевич</patronymic>
     <phone>32323</phone>
+    <passport>
+      <id_passport>7</id_passport>
+      <id_client>7</id_client>
+      <Date_issues>2344-03-03T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2344-03-03T00:00:00+03:00</Date_of_birth>
+      <issued_by>ng5</issued_by>
+    </passport>
+  </clients>
+  <clients>
+    <id_passport>8</id_passport>
+    <id_client>8</id_client>
+    <name>Александр</name>
+    <surname>Сухарев</surname>
+    <patronymic>Николаевич</patronymic>
+    <phone>32323</phone>
+    <passport>
+      <id_passport>8</id_passport>
+      <id_client>8</id_client>
+      <Date_issues>2344-03-03T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2344-03-03T00:00:00+03:00</Date_of_birth>
+      <issued_by>ng5</issued_by>
+    </passport>
   </clients>
 </warehouseDataSet>
