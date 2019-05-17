@@ -4,7 +4,8 @@ using System.Xml;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
-//using Excel = PowerPivotExcelClientAddInLib;
+//using System.Data.Interop.OcOfficeLib;
+//using Excel = OcOfficeLib.FormRegionContext;
 
 namespace lab_10
 {

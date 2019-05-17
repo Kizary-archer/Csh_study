@@ -89,7 +89,7 @@ namespace lab9
             adapterclient.UpdateCommand.Parameters.Add("@patronymic", SqlDbType.VarChar, 30, "patronymic");
             adapterclient.UpdateCommand.Parameters.Add("@phone", SqlDbType.Int, 4, "phone");
 
-            adapterpass.UpdateCommand = new SqlCommand("update passport set id_passport= @id_passport,id_client = @id_client,Date_issues = @Date_issues,Date_of_birth = @Date_of_birth,issued_by = @issued_by", connectWarehousebd);
+            adapterpass.UpdateCommand = new SqlCommand("update passport set  id_passport = @id_passport,id_client=@id_client,Date_issues =@Date_issues,Date_of_birth = @Date_of_birth,issued_by = @issued_by where id_passport = @id_passport", connectWarehousebd);
             adapterpass.UpdateCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
             adapterpass.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             adapterpass.UpdateCommand.Parameters.Add("@Date_issues", SqlDbType.Date, 30, "Date_issues");
@@ -158,6 +158,7 @@ namespace lab9
             button3.Visible = false;
             button4.Visible = false;
             button5.Visible = false;
+            textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
             textBox4.Text = "";
@@ -175,11 +176,11 @@ namespace lab9
             bindingSource1.EndEdit();
             bindingSource2.Position -= 1;
             bindingSource2.EndEdit();
-            // if (ds.clients.GetChanges(DataRowState.Added) == null)
-            adapterpass.Update(ds.passport);
-            adapterclient.Update(ds.clients);
-             bindingSource1.MoveLast();
-            bindingSource2.MoveLast();
+                adapterpass.Update(ds.passport);
+                adapterclient.Update(ds.clients);
+                bindingSource1.MoveLast();
+                bindingSource2.MoveLast();
+           
 
         }
 
