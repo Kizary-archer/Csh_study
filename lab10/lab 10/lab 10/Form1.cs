@@ -21,6 +21,9 @@ namespace lab_10
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (checkBox2.Checked) ds.Relations["full_client"].Nested = true;
+            else ds.Relations["full_client"].Nested = false;
+
             saveFileDialog1.Title = "Запись файл в формате xml";
             if (saveFileDialog1.ShowDialog() != DialogResult.Cancel)
             {
@@ -34,7 +37,6 @@ namespace lab_10
                     ds.WriteXmlSchema(saveFileDialog1.FileName + ".xsd");
                 }
             }
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -54,7 +56,8 @@ namespace lab_10
             bindingSource2.DataSource = bindingSource1;
             bindingSource2.DataMember = "full_client";
             dataGridView2.DataSource = bindingSource2;
-            ds.Relations["full_client"].Nested = true;
+            ds.Relations["full_client"].Nested = false;
+
 
         }
 
