@@ -133,15 +133,17 @@ namespace lab_10
             openFileDialog1.Title = "Выберите XML файлы";
             openFileDialog1.Filter = "XML(*.xml)|*.xml|All files(*.*)|*.*";
 
-
             if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
             {
                 ds2.ReadXml(openFileDialog1.FileName);
 
+                ds2.Relations.Add("full_client2", ds2.clients.Columns["id_client"], ds2.passport.Columns["id_passport"]);
 
+                bindingSource1.DataSource = ds2.clients;
                 dataGridView1.DataSource = bindingSource1;
+                bindingSource2.DataSource = bindingSource1;
+                if (checkBox2.Checked) bindingSource2.DataMember = "full_client2";
                 dataGridView2.DataSource = bindingSource2;
-
             }
 
 
