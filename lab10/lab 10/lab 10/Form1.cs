@@ -5,6 +5,9 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 //using System.Data.Interop.OcOfficeLib;
+//using System.Data.Interop.OcOfficeLib;
+//using System.Data.Interop.OcOfficeLib;
+//using System.Data.Interop.OcOfficeLib;
 //using Excel = OcOfficeLib.FormRegionContext;
 
 namespace lab_10
@@ -143,7 +146,7 @@ namespace lab_10
                 bindingSource1.DataSource = ds2.clients;
                 dataGridView1.DataSource = bindingSource1;
                 bindingSource2.DataSource = bindingSource1;
-                if (checkBox2.Checked) bindingSource2.DataMember = "full_client2";
+                if (checkBox3.Checked) bindingSource2.DataMember = "full_client2";
                 dataGridView2.DataSource = bindingSource2;
             }
 

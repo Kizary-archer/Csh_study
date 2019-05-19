@@ -6,13 +6,13 @@
     <name>Глеб</name>
     <surname>Сильков</surname>
     <patronymic>Александрович</patronymic>
-    <phone>8822</phone>
+    <phone>88221111</phone>
     <passport>
       <id_passport>1</id_passport>
       <id_client>1</id_client>
-      <Date_issues>2000-12-12T00:00:00+03:00</Date_issues>
-      <Date_of_birth>2001-12-12T00:00:00+03:00</Date_of_birth>
-      <issued_by>тп2</issued_by>
+      <Date_issues>2010-03-02T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-11T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп16</issued_by>
     </passport>
   </clients>
   <clients>
@@ -25,9 +25,9 @@
     <passport>
       <id_passport>2</id_passport>
       <id_client>2</id_client>
-      <Date_issues>2012-05-23T00:00:00+04:00</Date_issues>
-      <Date_of_birth>2012-05-21T00:00:00+04:00</Date_of_birth>
-      <issued_by>тп6</issued_by>
+      <Date_issues>2010-03-27T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-02T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп1</issued_by>
     </passport>
   </clients>
   <clients>
@@ -40,9 +40,9 @@
     <passport>
       <id_passport>3</id_passport>
       <id_client>3</id_client>
-      <Date_issues>1234-05-21T00:00:00+04:00</Date_issues>
-      <Date_of_birth>2012-05-23T00:00:00+04:00</Date_of_birth>
-      <issued_by>тп8</issued_by>
+      <Date_issues>2010-03-02T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-02T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп1</issued_by>
     </passport>
   </clients>
   <clients>
@@ -55,9 +55,9 @@
     <passport>
       <id_passport>4</id_passport>
       <id_client>4</id_client>
-      <Date_issues>2003-09-11T00:00:00+04:00</Date_issues>
-      <Date_of_birth>2013-08-07T00:00:00+04:00</Date_of_birth>
-      <issued_by>тп4</issued_by>
+      <Date_issues>2010-03-02T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-02T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп1</issued_by>
     </passport>
   </clients>
   <clients>
@@ -70,9 +70,9 @@
     <passport>
       <id_passport>5</id_passport>
       <id_client>5</id_client>
-      <Date_issues>2344-03-03T00:00:00+03:00</Date_issues>
-      <Date_of_birth>2344-03-03T00:00:00+03:00</Date_of_birth>
-      <issued_by>aa</issued_by>
+      <Date_issues>2010-03-02T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-02T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп5</issued_by>
     </passport>
   </clients>
   <clients>
@@ -85,39 +85,54 @@
     <passport>
       <id_passport>6</id_passport>
       <id_client>6</id_client>
-      <Date_issues>2004-11-11T00:00:00+03:00</Date_issues>
-      <Date_of_birth>2004-11-11T00:00:00+03:00</Date_of_birth>
-      <issued_by>тп 8</issued_by>
+      <Date_issues>2010-03-02T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-02T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп1</issued_by>
     </passport>
   </clients>
   <clients>
     <id_passport>7</id_passport>
     <id_client>7</id_client>
-    <name>Александр</name>
-    <surname>Сухарев</surname>
-    <patronymic>Николаевич</patronymic>
-    <phone>32323</phone>
+    <name>Андрей</name>
+    <surname>qqww</surname>
+    <patronymic>qqee</patronymic>
+    <phone>1122</phone>
     <passport>
       <id_passport>7</id_passport>
       <id_client>7</id_client>
-      <Date_issues>2344-03-03T00:00:00+03:00</Date_issues>
-      <Date_of_birth>2344-03-03T00:00:00+03:00</Date_of_birth>
-      <issued_by>ng5</issued_by>
+      <Date_issues>2010-03-02T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-02T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп19</issued_by>
     </passport>
   </clients>
   <clients>
     <id_passport>8</id_passport>
     <id_client>8</id_client>
-    <name>Александр</name>
-    <surname>Сухарев</surname>
-    <patronymic>Николаевич</patronymic>
-    <phone>32323</phone>
+    <name>Борис</name>
+    <surname>Сидоров</surname>
+    <patronymic>Бедросович</patronymic>
+    <phone>123232323</phone>
     <passport>
       <id_passport>8</id_passport>
       <id_client>8</id_client>
-      <Date_issues>2344-03-03T00:00:00+03:00</Date_issues>
-      <Date_of_birth>2344-03-03T00:00:00+03:00</Date_of_birth>
-      <issued_by>ng5</issued_by>
+      <Date_issues>2010-03-25T00:00:00+03:00</Date_issues>
+      <Date_of_birth>2010-03-08T00:00:00+03:00</Date_of_birth>
+      <issued_by>тп191</issued_by>
+    </passport>
+  </clients>
+  <clients>
+    <id_passport>9</id_passport>
+    <id_client>9</id_client>
+    <name>Сушар</name>
+    <surname>Грама</surname>
+    <patronymic>Бестирович</patronymic>
+    <phone>777777777</phone>
+    <passport>
+      <id_passport>9</id_passport>
+      <id_client>9</id_client>
+      <Date_issues>2010-07-16T00:00:00+04:00</Date_issues>
+      <Date_of_birth>2010-03-25T00:00:00+03:00</Date_of_birth>
+      <issued_by>вахта1</issued_by>
     </passport>
   </clients>
 </warehouseDataSet>
