@@ -16,8 +16,8 @@ namespace lab11
         SqlConnection connectWarehousebd = new SqlConnection();//строка подключения для MSSQL
         SqlCommand cmd = new SqlCommand();
         SqlDataAdapter adapterclient, adapterpass,adapterphone;
-        warehouseDataSet ds = new warehouseDataSet();
-        DataView dvclients = new DataView();
+        warehouseDataSet1 ds = new warehouseDataSet1();
+        DataView dvphone = new DataView();
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -28,6 +28,9 @@ namespace lab11
         {
             bindingSource1.Position = comboBox1.SelectedIndex;
             bindingSource2.Position = comboBox1.SelectedIndex;
+            dvphone.RowStateFilter = DataViewRowState.CurrentRows;
+            dvphone.RowFilter = String.Format("id_client={0}", comboBox1.SelectedValue);
+            dataGridView1.DataSource = dvphone;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -42,6 +45,7 @@ namespace lab11
             groupBox2.Enabled = false;
             groupBox1.Enabled = true;
             groupBox3.Visible = false;
+            ds.RejectChanges();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -52,6 +56,7 @@ namespace lab11
             bindingSource2.EndEdit();
             adapterpass.Update(ds.passport);
             adapterclient.Update(ds.clients);
+            adapterphone.Update(ds.phone);
             bindingSource1.MoveLast();
             bindingSource2.MoveLast();
         }
@@ -62,10 +67,67 @@ namespace lab11
             bindingSource2.RemoveCurrent();
             if (ds.clients.GetChanges(DataRowState.Deleted) != null)
             {
-               // adapterpass.Update(ds.passport);
-               // adapterclient.Update(ds.clients);
+                adapterpass.Update(ds.passport);
+                adapterclient.Update(ds.clients);
 
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            groupBox2.Enabled = true;
+            groupBox1.Enabled = false;
+            groupBox3.Visible = true;
+            DataRow row = ds.clients.NewRow();
+            DataRow rowpass = ds.passport.NewRow();
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            textBox4.Text = "";
+            textBox6.Text = "";
+            row[0] = Convert.ToInt32(ds.clients.Rows.Count + 1);
+            row[1] = textBox2.Text;
+            row[2] = textBox3.Text;
+            row[3] = textBox4.Text;
+            ds.clients.Rows.Add(row);
+            rowpass[0] = Convert.ToInt32(ds.passport.Rows.Count + 1);
+            rowpass[1] = dateTimePicker1.Value;
+            rowpass[2] = dateTimePicker2.Value;
+            rowpass[3] = textBox6.Text;
+            ds.passport.Rows.Add(rowpass);
+            if (ds.clients.GetChanges(DataRowState.Added) != null)
+            {
+                adapterclient.Update(ds.clients);
+                adapterpass.Update(ds.passport);
+                bindingSource1.MoveLast();
+                bindingSource2.MoveLast();
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            groupBox2.Enabled = false;
+            groupBox1.Enabled = true;
+            groupBox3.Visible = false;
+            bindingSource1.Position -= 1;
+            bindingSource1.EndEdit();
+            bindingSource2.Position -= 1;
+            bindingSource2.EndEdit();
+            bindingSource1.Position += 1;
+            bindingSource1.Position += 1;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DataRow row1 = ds.phone.NewRow();
+            row1[0] = Convert.ToInt32(ds.phone.Rows.Count + 1);
+            row1[1] = Convert.ToInt32(textBox1.Text);
+            row1[2] = textBox7.Text;
+            ds.phone.Rows.Add(row1);
+
+            adapterphone.Update(ds.phone);
+
+            textBox7.Text = "";
         }
 
         public Form1()
@@ -76,7 +138,7 @@ namespace lab11
         private void Form1_Load(object sender, EventArgs e)
         {
             //connect
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString1"].ConnectionString;//подключение к источнику 
             connectWarehousebd = new SqlConnection(connctSt);
             adapterclient = new SqlDataAdapter("SELECT clients.* FROM clients", connectWarehousebd);
             adapterclient.Fill(ds, "clients");
@@ -102,6 +164,13 @@ namespace lab11
             dateTimePicker1.DataBindings.Add("text", bindingSource2, "Date_of_birth");
             dateTimePicker2.DataBindings.Add("text", bindingSource2, "Date_issues");
             textBox6.DataBindings.Add("text", bindingSource2, "issued_by");
+            //datagrid
+            dvphone.Table = ds.phone;
+            dvphone.RowStateFilter = DataViewRowState.CurrentRows;
+            dvphone.RowFilter = String.Format("id_client={0}", comboBox1.SelectedValue);
+            dataGridView1.DataSource = dvphone;
+            dataGridView1.Columns[0].Visible = false;
+            dataGridView1.Columns[1].Visible = false;
 
             //настройка адаптера на вставку
             adapterclient.InsertCommand = new SqlCommand("insert into clients values (@id_client,@name,@surname,@patronymic)", connectWarehousebd);
@@ -116,12 +185,21 @@ namespace lab11
             adapterpass.InsertCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
             adapterpass.InsertCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
 
+            adapterphone.InsertCommand = new SqlCommand("insert into phone values (@id_phone,@id_client,@phone)", connectWarehousebd);
+            adapterphone.InsertCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
+            adapterphone.InsertCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
+            adapterphone.InsertCommand.Parameters.Add("@phone", SqlDbType.VarChar, 20, "phone");
+
             //удаление строк
             adapterclient.DeleteCommand = new SqlCommand("delete from clients where id_client = @id_client", connectWarehousebd);
             adapterclient.DeleteCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
 
-            adapterpass.DeleteCommand = new SqlCommand("delete from passport where id_passport = @id_client", connectWarehousebd);
+            adapterpass.DeleteCommand = new SqlCommand("delete from passport where id_passport = @id_passport", connectWarehousebd);
             adapterpass.DeleteCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
+
+            adapterphone.DeleteCommand = new SqlCommand("delete from phone where id_phone = @id_phone", connectWarehousebd);
+            adapterphone.DeleteCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
+
             //обновление строк
             adapterclient.UpdateCommand = new SqlCommand("update clients set id_client = @id_client,name = @name,surname = @surname,patronymic = @patronymic where id_client = @id_client", connectWarehousebd);
             adapterclient.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
@@ -135,10 +213,11 @@ namespace lab11
             adapterpass.UpdateCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
             adapterpass.UpdateCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
 
-            //dataGridView1.Columns[0].Visible = false;
-            //dataGridView1.Columns[1].Visible = false;
-            //dvclients.RowStateFilter = DataViewRowState.CurrentRows;
-            // dvclients.RowFilter = String.Format("id_client={0}", comboBox1.SelectedValue);
+            adapterphone.UpdateCommand = new SqlCommand("update phone set  id_phone = @id_phone,id_client =@id_client,phone = @phone where id_phone = @id_phone", connectWarehousebd);
+            adapterphone.UpdateCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
+            adapterphone.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
+            adapterphone.UpdateCommand.Parameters.Add("@phone", SqlDbType.VarChar, 20, "phone");
+
             groupBox2.Enabled = false;
             groupBox1.Enabled = true;
             textBox1.Enabled = false;

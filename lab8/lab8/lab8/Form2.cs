@@ -96,6 +96,11 @@ namespace lab8
             ds.clients.Columns.Add(FIO);
 
         }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
