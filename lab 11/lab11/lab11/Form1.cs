@@ -69,6 +69,7 @@ namespace lab11
             {
                 adapterpass.Update(ds.passport);
                 adapterclient.Update(ds.clients);
+                adapterphone.Update(ds.phone);
 
             }
         }
@@ -102,6 +103,9 @@ namespace lab11
                 bindingSource1.MoveLast();
                 bindingSource2.MoveLast();
             }
+            dvphone.RowStateFilter = DataViewRowState.CurrentRows;
+            dvphone.RowFilter = String.Format("id_client={0}", textBox1.Text);
+            dataGridView1.DataSource = dvphone;
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -119,11 +123,11 @@ namespace lab11
 
         private void button4_Click(object sender, EventArgs e)
         {
-            DataRow row1 = ds.phone.NewRow();
-            row1[0] = Convert.ToInt32(ds.phone.Rows.Count + 1);
-            row1[1] = Convert.ToInt32(textBox1.Text);
-            row1[2] = textBox7.Text;
-            ds.phone.Rows.Add(row1);
+            DataRow row = ds.phone.NewRow();
+            row[0] = Convert.ToInt32(ds.phone.Rows.Count + 1);
+            row[1] = Convert.ToInt32(textBox1.Text);
+            row[2] = textBox7.Text;
+            ds.phone.Rows.Add(row);
 
             adapterphone.Update(ds.phone);
 
