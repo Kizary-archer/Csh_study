@@ -58,6 +58,8 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.bindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -152,9 +154,9 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(333, 165);
+            this.dataGridView1.Location = new System.Drawing.Point(252, 165);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(200, 86);
+            this.dataGridView1.Size = new System.Drawing.Size(281, 86);
             this.dataGridView1.TabIndex = 47;
             // 
             // button6
@@ -179,18 +181,20 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.dateTimePicker3);
+            this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.button4);
             this.groupBox3.Controls.Add(this.textBox7);
             this.groupBox3.Location = new System.Drawing.Point(559, 34);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(200, 100);
+            this.groupBox3.Size = new System.Drawing.Size(200, 162);
             this.groupBox3.TabIndex = 44;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "телефон";
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(48, 47);
+            this.button4.Location = new System.Drawing.Point(52, 103);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(109, 38);
             this.button4.TabIndex = 41;
@@ -321,6 +325,24 @@
             this.label1.TabIndex = 25;
             this.label1.Text = "id";
             // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker3.Location = new System.Drawing.Point(52, 63);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.Size = new System.Drawing.Size(91, 20);
+            this.dateTimePicker3.TabIndex = 44;
+            this.dateTimePicker3.Value = new System.DateTime(2019, 5, 6, 0, 0, 0, 0);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 13);
+            this.label2.TabIndex = 43;
+            this.label2.Text = "дата выдачи";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -376,6 +398,8 @@
         private System.Windows.Forms.BindingSource bindingSource2;
         private System.Windows.Forms.BindingSource bindingSource3;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.Label label2;
     }
 }
 

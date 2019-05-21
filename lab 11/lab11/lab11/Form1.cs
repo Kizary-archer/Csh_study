@@ -127,6 +127,7 @@ namespace lab11
             row[0] = Convert.ToInt32(ds.phone.Rows.Count + 1);
             row[1] = Convert.ToInt32(textBox1.Text);
             row[2] = textBox7.Text;
+            row[3] = dateTimePicker3.Value;
             ds.phone.Rows.Add(row);
 
             adapterphone.Update(ds.phone);
@@ -189,10 +190,11 @@ namespace lab11
             adapterpass.InsertCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
             adapterpass.InsertCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
 
-            adapterphone.InsertCommand = new SqlCommand("insert into phone values (@id_phone,@id_client,@phone)", connectWarehousebd);
+            adapterphone.InsertCommand = new SqlCommand("insert into phone values (@id_phone,@id_client,@phone,@Date_)", connectWarehousebd);
             adapterphone.InsertCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
             adapterphone.InsertCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             adapterphone.InsertCommand.Parameters.Add("@phone", SqlDbType.VarChar, 20, "phone");
+            adapterphone.InsertCommand.Parameters.Add("@Date_", SqlDbType.Date, 30, "Date_");
 
             //удаление строк
             adapterclient.DeleteCommand = new SqlCommand("delete from clients where id_client = @id_client", connectWarehousebd);
@@ -217,10 +219,11 @@ namespace lab11
             adapterpass.UpdateCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
             adapterpass.UpdateCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
 
-            adapterphone.UpdateCommand = new SqlCommand("update phone set  id_phone = @id_phone,id_client =@id_client,phone = @phone where id_phone = @id_phone", connectWarehousebd);
+            adapterphone.UpdateCommand = new SqlCommand("update phone set  id_phone = @id_phone,id_client =@id_client,phone = @phone,Date_ = @Date_ where id_phone = @id_phone", connectWarehousebd);
             adapterphone.UpdateCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
             adapterphone.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             adapterphone.UpdateCommand.Parameters.Add("@phone", SqlDbType.VarChar, 20, "phone");
+            adapterphone.UpdateCommand.Parameters.Add("@Date_", SqlDbType.Date, 30, "Date_");
 
             groupBox2.Enabled = false;
             groupBox1.Enabled = true;
