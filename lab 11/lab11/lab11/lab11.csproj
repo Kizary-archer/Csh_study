@@ -60,6 +60,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>warehouseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="warehouseDataSet1.cs">
+      <DependentUpon>warehouseDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="warehouseDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

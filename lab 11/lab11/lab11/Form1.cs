@@ -128,7 +128,6 @@ namespace lab11
         private void button4_Click(object sender, EventArgs e)
         {
             DataRow row = ds.phone.NewRow();
-            row[0] = Convert.ToInt32(ds.phone.Rows.Count + 1);
             row[1] = Convert.ToInt32(textBox1.Text);
             row[2] = textBox7.Text;
             row[3] = dateTimePicker3.Value;
@@ -215,8 +214,7 @@ namespace lab11
             adapterpass.InsertCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
             adapterpass.InsertCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
 
-            adapterphone.InsertCommand = new SqlCommand("insert into phone values (@id_phone,@id_client,@phone,@Date_)", connectWarehousebd);
-            adapterphone.InsertCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
+            adapterphone.InsertCommand = new SqlCommand("insert into phone values (@id_client,@phone,@Date_)", connectWarehousebd);
             adapterphone.InsertCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             adapterphone.InsertCommand.Parameters.Add("@phone", SqlDbType.VarChar, 20, "phone");
             adapterphone.InsertCommand.Parameters.Add("@Date_", SqlDbType.Date, 30, "Date_");
@@ -244,7 +242,7 @@ namespace lab11
             adapterpass.UpdateCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
             adapterpass.UpdateCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
 
-            adapterphone.UpdateCommand = new SqlCommand("update phone set  id_phone = @id_phone,id_client =@id_client,phone = @phone,Date_ = @Date_new where id_phone = @id_phone and Date_ = @Date_old ", connectWarehousebd);
+            adapterphone.UpdateCommand = new SqlCommand("update phone set id_client =@id_client,phone = @phone,Date_ = @Date_new where id_phone = @id_phone and Date_ = @Date_old ", connectWarehousebd);
             adapterphone.UpdateCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
             adapterphone.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             adapterphone.UpdateCommand.Parameters.Add("@phone", SqlDbType.VarChar, 20, "phone");
