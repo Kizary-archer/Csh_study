@@ -18,6 +18,7 @@ namespace lab11
         SqlDataAdapter adapterclient, adapterpass,adapterphone;
         warehouseDataSet1 ds = new warehouseDataSet1();
         DataView dvphone = new DataView();
+        DataGridViewButtonColumn deleteButton;
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
@@ -113,6 +114,15 @@ namespace lab11
             groupBox2.Enabled = false;
             groupBox1.Enabled = true;
             groupBox3.Visible = false;
+            bindingSource1.Position -= 1;
+            bindingSource1.EndEdit();
+            bindingSource2.Position -= 1;
+            bindingSource2.EndEdit();
+            adapterpass.Update(ds.passport);
+            adapterclient.Update(ds.clients);
+            bindingSource1.MoveLast();
+            bindingSource2.MoveLast();
+            comboBox1.Update();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -124,9 +134,23 @@ namespace lab11
             row[3] = dateTimePicker3.Value;
             ds.phone.Rows.Add(row);
 
-            adapterphone.Update(ds.phone);
+            //adapterphone.Update(ds.phone);
 
             textBox7.Text = "";
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex] == deleteButton)
+                {
+                bindingSource3.Position = int.Parse(e.RowIndex.ToString());
+                bindingSource3.RemoveCurrent();
+                }
+            if (ds.clients.GetChanges(DataRowState.Deleted) != null)
+            {
+                //adapterphone.Update(ds.phone);
+                //dataGridView1.Update();
+            }
         }
 
         public Form1()
@@ -170,6 +194,13 @@ namespace lab11
             dataGridView1.DataSource = dvphone;
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[1].Visible = false;
+            //кнопка удаления записи
+            deleteButton = new DataGridViewButtonColumn();
+            //deleteButton.HeaderText = "Х";
+            deleteButton.Text = "Х";
+            deleteButton.UseColumnTextForButtonValue = true;
+            deleteButton.Width = 30;
+            dataGridView1.Columns.Add(deleteButton);
 
             //настройка адаптера на вставку
             adapterclient.InsertCommand = new SqlCommand("insert into clients values (@id_client,@name,@surname,@patronymic)", connectWarehousebd);
@@ -213,12 +244,15 @@ namespace lab11
             adapterpass.UpdateCommand.Parameters.Add("@Date_of_birth", SqlDbType.Date, 30, "Date_of_birth");
             adapterpass.UpdateCommand.Parameters.Add("@issued_by", SqlDbType.VarChar, 30, "issued_by");
 
-            adapterphone.UpdateCommand = new SqlCommand("update phone set  id_phone = @id_phone,id_client =@id_client,phone = @phone,Date_ = @Date_ where id_phone = @id_phone", connectWarehousebd);
+            adapterphone.UpdateCommand = new SqlCommand("update phone set  id_phone = @id_phone,id_client =@id_client,phone = @phone,Date_ = @Date_new where id_phone = @id_phone and Date_ = @Date_old ", connectWarehousebd);
             adapterphone.UpdateCommand.Parameters.Add("@id_phone", SqlDbType.Int, 4, "id_phone");
             adapterphone.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             adapterphone.UpdateCommand.Parameters.Add("@phone", SqlDbType.VarChar, 20, "phone");
-            adapterphone.UpdateCommand.Parameters.Add("@Date_", SqlDbType.Date, 30, "Date_");
-
+            adapterphone.UpdateCommand.Parameters.Add("@Date_old", SqlDbType.Date, 30, "Date_");
+            adapterphone.UpdateCommand.Parameters.Add("@Date_new", SqlDbType.Date, 30, "Date_");
+            adapterphone.UpdateCommand.Parameters["@Date_old"].SourceVersion = DataRowVersion.Original;
+            adapterphone.UpdateCommand.Parameters["@Date_new"].SourceVersion = DataRowVersion.Current;
+    
             groupBox2.Enabled = false;
             groupBox1.Enabled = true;
             textBox1.Enabled = false;
