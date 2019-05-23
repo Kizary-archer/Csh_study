@@ -113,12 +113,6 @@ namespace lab11
             groupBox2.Enabled = false;
             groupBox1.Enabled = true;
             groupBox3.Visible = false;
-            bindingSource1.Position -= 1;
-            bindingSource1.EndEdit();
-            bindingSource2.Position -= 1;
-            bindingSource2.EndEdit();
-            bindingSource1.Position += 1;
-            bindingSource1.Position += 1;
         }
 
         private void button4_Click(object sender, EventArgs e)
