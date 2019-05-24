@@ -17,7 +17,7 @@ namespace lab9
         SqlConnection connectWarehousebd = new SqlConnection();//строка подключения для MSSQL
         SqlCommand cmd = new SqlCommand();
         SqlDataAdapter adapterclient,adapterpass;
-        warehouseDataSet ds = new warehouseDataSet();
+        warehouseDataSet1 ds = new warehouseDataSet1();
         public Form1()
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace lab9
         private void Form1_Load(object sender, EventArgs e)
         {
             button1.Visible = false;
-            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString"].ConnectionString;//подключение к источнику 
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString1"].ConnectionString;//подключение к источнику 
             connectWarehousebd = new SqlConnection(connctSt);
             adapterclient = new SqlDataAdapter("SELECT clients.* FROM clients", connectWarehousebd);
             adapterclient.Fill(ds, "clients");
@@ -51,8 +51,7 @@ namespace lab9
             textBox2.DataBindings.Add("text", bindingSource1, "name");
             textBox3.DataBindings.Add("text", bindingSource1, "surname");
             textBox4.DataBindings.Add("text", bindingSource1, "patronymic");
-            textBox5.DataBindings.Add("text", bindingSource1, "phone");
-            textBox6.DataBindings.Add("text", bindingSource1, "id_client");
+             textBox6.DataBindings.Add("text", bindingSource1, "id_client");
 
             dateTimePicker1.DataBindings.Add("text", bindingSource2, "Date_of_birth");
             dateTimePicker2.DataBindings.Add("text", bindingSource2, "Date_issues");
@@ -81,13 +80,12 @@ namespace lab9
             adapterpass.DeleteCommand = new SqlCommand("delete from passport where id_client = @id_client", connectWarehousebd);
             adapterpass.DeleteCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             //обновление строк
-            adapterclient.UpdateCommand = new SqlCommand("update clients set id_passport= @id_passport,id_client = @id_client,name = @name,surname = @surname,patronymic = @patronymic,phone = @phone where id_client = @id_client", connectWarehousebd);
+            adapterclient.UpdateCommand = new SqlCommand("update clients set id_passport= @id_passport,id_client = @id_client,name = @name,surname = @surname,patronymic = @patronymic where id_client = @id_client", connectWarehousebd);
             adapterclient.UpdateCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
             adapterclient.UpdateCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
             adapterclient.UpdateCommand.Parameters.Add("@name", SqlDbType.VarChar, 30, "name");
             adapterclient.UpdateCommand.Parameters.Add("@surname", SqlDbType.VarChar, 30, "surname");
             adapterclient.UpdateCommand.Parameters.Add("@patronymic", SqlDbType.VarChar, 30, "patronymic");
-            adapterclient.UpdateCommand.Parameters.Add("@phone", SqlDbType.Int, 4, "phone");
 
             adapterpass.UpdateCommand = new SqlCommand("update passport set  id_passport = @id_passport,id_client=@id_client,Date_issues =@Date_issues,Date_of_birth = @Date_of_birth,issued_by = @issued_by where id_passport = @id_passport", connectWarehousebd);
             adapterpass.UpdateCommand.Parameters.Add("@id_passport", SqlDbType.Int, 4, "id_passport");
@@ -131,17 +129,15 @@ namespace lab9
             DataRow row = ds.clients.NewRow();
             DataRow rowpass = ds.passport.NewRow();
             row[0] = Convert.ToInt32(ds.clients.Rows.Count + 1);
-            row[1] = Convert.ToInt32(ds.clients.Rows.Count + 1);
-            row[2] = textBox2.Text;
-            row[3] = textBox3.Text;
-            row[4] = textBox4.Text;
-            row[5] = Convert.ToInt32(textBox5.Text);
+            row[1] = textBox2.Text;
+            row[2] = textBox3.Text;
+            row[3] = textBox4.Text;
+            //row[5] = Convert.ToInt32(textBox5.Text);
 
             rowpass[0] = Convert.ToInt32(ds.passport.Rows.Count + 1);
-            rowpass[1] = Convert.ToInt32(ds.passport.Rows.Count + 1);
-            rowpass[2] = dateTimePicker1.Value;
-            rowpass[3] = dateTimePicker2.Value;
-            rowpass[4] = textBox1.Text;
+            rowpass[1] = dateTimePicker1.Value;
+            rowpass[2] = dateTimePicker2.Value;
+            rowpass[3] = textBox1.Text;
             ds.clients.Rows.Add(row);
             ds.passport.Rows.Add(rowpass);
             if (ds.clients.GetChanges(DataRowState.Added) != null)

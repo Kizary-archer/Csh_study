@@ -87,7 +87,13 @@ namespace lab11
             textBox3.Text = "";
             textBox4.Text = "";
             textBox6.Text = "";
-            row[0] = Convert.ToInt32(ds.clients.Rows.Count + 1);
+            //sss
+            string connctSt = ConfigurationManager.ConnectionStrings["warehouseConnectionString1"].ConnectionString;//подключение к источнику 
+            SqlConnection сonnectWarehousebd = new SqlConnection(connctSt);//
+            SqlCommand cmd = new SqlCommand("SELECT max(clients.id_client)FROM clients", сonnectWarehousebd);
+            сonnectWarehousebd.Open();//метод открытия подключения
+            row[0] = Convert.ToInt32(cmd.ExecuteScalar())+1;
+            сonnectWarehousebd.Close();
             row[1] = textBox2.Text;
             row[2] = textBox3.Text;
             row[3] = textBox4.Text;
@@ -96,7 +102,7 @@ namespace lab11
             rowpass[1] = dateTimePicker1.Value;
             rowpass[2] = dateTimePicker2.Value;
             rowpass[3] = textBox6.Text;
-            ds.passport.Rows.Add(rowpass);
+                        ds.passport.Rows.Add(rowpass);
             if (ds.clients.GetChanges(DataRowState.Added) != null)
             {
                 adapterclient.Update(ds.clients);
