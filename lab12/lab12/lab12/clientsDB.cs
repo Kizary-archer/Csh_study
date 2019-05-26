@@ -54,5 +54,18 @@ namespace lab12
                 //ds.AcceptChanges();
             }
         }
+        //методы удаления
+        private void adapSetDel()
+        {
+            adapterclient.DeleteCommand = new SqlCommand("Delete_client", (SqlConnection)connectWarehousebd);
+            adapterclient.DeleteCommand.CommandType = CommandType.StoredProcedure;
+            adapterclient.DeleteCommand.Parameters.Add("@id_client", SqlDbType.Int, 4, "id_client");
+        }
+        public void Delete(SecAccess access)
+        {
+            adapSetDel();
+            ds.standalone_clients.Rows[access.Id].Delete();
+            adapterclient.Update(ds.standalone_clients);
+        }
     }
 }
