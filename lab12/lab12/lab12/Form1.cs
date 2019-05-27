@@ -23,8 +23,7 @@ namespace lab12
             groupBox1.Visible = false;
             dataGridView1.Enabled = true;
             clientsDB clients = new clientsDB("warehouseConnectionString");//подключаемся к бд и заполняем датасет
-            //dataGridView1.DataSource = clients.ds.standalone_clients;
-            //dataGridView1.Columns[0].Visible = false;
+  
             bindingSource1.DataSource = clients.GetAllClient();
             dataGridView1.DataSource = bindingSource1;
             deleteButton = new DataGridViewButtonColumn();
@@ -34,6 +33,7 @@ namespace lab12
             deleteButton.Width = 30;
             dataGridView1.Columns.Add(deleteButton);
             this.Width = 630;
+            dataGridView1.Columns[5].Visible = false;
 
 
         }
