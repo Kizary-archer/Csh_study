@@ -44,9 +44,14 @@ namespace lab12
         {
             this.Id = id;
         }
-        public SecAccess(int id, string Cname, string surname, string patronymic, DateTime Date_of_birth, int phone)    //delete
+        public SecAccess(int id, string Cname, string surname, string patronymic, DateTime Date_of_birth, int phone)    //update,select
         {
             this.Id = id;
+            this.CName = Cname;
+            this.Surname = surname;
+            this.Patronymic = patronymic;
+            this.Date_of_Birth = Date_of_birth;
+            this.Phone = phone;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace lab12
         public warehouseDataSet ds = new warehouseDataSet();
         private SqlDataAdapter adapterclient;
 
+
         public clientsDB(string ConSts)
         {
             string connctSt = ConfigurationManager.ConnectionStrings[ConSts].ConnectionString;//подключение к источнику 
@@ -67,5 +68,25 @@ namespace lab12
             ds.standalone_clients.Rows[access.Id].Delete();
             adapterclient.Update(ds.standalone_clients);
         }
+        //методы обновления
+        private void adapSetUpdate()
+        {
+
+        }
+        //
+        public SecAccess GetClient(int id)
+        {
+            SqlCommand cmd = new SqlCommand("SelectClient", connectWarehousebd);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_client", id);
+            connectWarehousebd.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            SecAccess curClient = new SecAccess((int)reader[0], (string)reader[1], (string)reader[2], (string)reader[3], (DateTime)reader[4], (int)reader[5]);
+            reader.Close();
+            return curClient;
+
+        }
     }
+
 }

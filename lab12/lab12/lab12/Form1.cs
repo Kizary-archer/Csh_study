@@ -73,12 +73,30 @@ namespace lab12
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            clientsDB clients = new clientsDB("warehouseConnectionString");
             if (dataGridView1.Columns[e.ColumnIndex] == deleteButton)
             {
-                clientsDB clients = new clientsDB("warehouseConnectionString");
                 clients.Delete(new SecAccess(dataGridView1.CurrentRow.Index));
                 dataGridView1.DataSource = clients.ds.standalone_clients;
             }
+            else
+            {
+                int ind = Convert.ToInt32(dataGridView1[0, e.RowIndex].Value);
+               // MessageBox.Show(ind.ToString());
+                SecAccess access = clients.GetClient(ind);
+                textBox1.Text = access.CName;
+                textBox2.Text = access.Surname;
+                textBox3.Text = access.Patronymic;
+                dateTimePicker1.Value = access.Date_of_Birth;
+                maskedTextBox1.Text = access.Phone.ToString();
+                button1.Visible = false;
+                button4.Visible = false;
+                groupBox1.Visible = true;
+                this.Width = 888;
+
+
+            }
+
         }
     }
 }
