@@ -68,10 +68,20 @@ namespace lab12
             ds.standalone_clients.Rows[access.Id].Delete();
             adapterclient.Update(ds.standalone_clients);
         }
-        //методы обновления
-        private void adapSetUpdate()
+        //метод обновления
+        public void Update(SecAccess access)
         {
-
+            SqlCommand cmd = new SqlCommand("UpdateClient", connectWarehousebd);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@id_client", access.Id);
+            cmd.Parameters.AddWithValue("@Cname", access.CName);
+            cmd.Parameters.AddWithValue("@surname", access.Surname);
+            cmd.Parameters.AddWithValue("@Patronymic", access.Patronymic);
+            cmd.Parameters.AddWithValue("@Date_of_birth", access.Date_of_Birth);
+            cmd.Parameters.AddWithValue("@phone", access.Phone);
+            connectWarehousebd.Open();
+            cmd.ExecuteNonQuery();
+            connectWarehousebd.Close();
         }
         //
         public SecAccess GetClient(int id)
@@ -82,7 +92,13 @@ namespace lab12
             connectWarehousebd.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
-            SecAccess curClient = new SecAccess((int)reader[0], (string)reader[1], (string)reader[2], (string)reader[3], (DateTime)reader[4], (int)reader[5]);
+            SecAccess curClient = new SecAccess();
+            curClient.Id = (int)reader["id_client"];
+            curClient.CName = (string)reader["Cname"];
+            curClient.Surname = (string)reader["surname"];
+            curClient.Patronymic = (string)reader["patronymic"];
+            curClient.Date_of_Birth = (DateTime)reader["Date_of_birth"];
+            curClient.Phone = (int)reader["phone"];
             reader.Close();
             connectWarehousebd.Close();
             return curClient;
@@ -98,12 +114,12 @@ namespace lab12
             while (reader.Read())
             {
                 SecAccess curClient = new SecAccess();
-                curClient.Id = (int)reader[0];
-                curClient.CName = (string)reader[1];
-                curClient.Surname = (string)reader[2];
-                curClient.Patronymic = (string)reader[3];
-                curClient.Date_of_Birth = (DateTime)reader[4];
-                curClient.Phone = (int)reader[5];
+                curClient.Id = (int)reader["id_client"];
+                curClient.CName = (string)reader["Cname"];
+                curClient.Surname = (string)reader["surname"];
+                curClient.Patronymic = (string)reader["patronymic"];
+                curClient.Date_of_Birth = (DateTime)reader["Date_of_birth"];
+                curClient.Phone = (int)reader["phone"];
                 curClients.Add(curClient);
             }
             reader.Close();

@@ -41,7 +41,8 @@ namespace lab12
         {
             clientsDB clients = new clientsDB("warehouseConnectionString");
             clients.Insert(new SecAccess(textBox1.Text,textBox2.Text,textBox3.Text, dateTimePicker1.Value,Convert.ToInt32(maskedTextBox1.Text)));
-            dataGridView1.DataSource = clients.ds.standalone_clients;
+            bindingSource1.DataSource = clients.GetAllClient();
+            dataGridView1.DataSource = bindingSource1;
             cancel();
         }
         private void button2_Click(object sender, EventArgs e)
@@ -82,7 +83,8 @@ namespace lab12
             if (dataGridView1.Columns[e.ColumnIndex] == deleteButton)
             {
                 clients.Delete(new SecAccess(dataGridView1.CurrentRow.Index));
-                dataGridView1.DataSource = clients.ds.standalone_clients;
+                bindingSource1.DataSource = clients.GetAllClient();
+                dataGridView1.DataSource = bindingSource1;
 
             }
             else
@@ -101,6 +103,16 @@ namespace lab12
                 this.Width = 888;
             }
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            clientsDB clients = new clientsDB("warehouseConnectionString");
+            int i = (int)dataGridView1[5, dataGridView1.CurrentCellAddress.Y].Value;
+            clients.Update(new SecAccess(i,textBox1.Text, textBox2.Text, textBox3.Text, dateTimePicker1.Value, Convert.ToInt32(maskedTextBox1.Text)));
+            bindingSource1.DataSource = clients.GetAllClient();
+            dataGridView1.DataSource = bindingSource1;
+            cancel();
         }
     }
 }

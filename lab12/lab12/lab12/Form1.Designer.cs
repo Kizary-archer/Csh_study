@@ -112,6 +112,7 @@
             this.button3.TabIndex = 9;
             this.button3.Text = "Изменить";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // maskedTextBox1
             // 
@@ -197,9 +198,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(529, 206);
+            this.button4.Location = new System.Drawing.Point(492, 174);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(112, 35);
             this.button4.TabIndex = 7;
             this.button4.Text = "Отменить";
             this.button4.UseVisualStyleBackColor = true;
