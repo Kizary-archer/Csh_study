@@ -28,6 +28,10 @@ namespace lab12
         public int Phone { get => phone; set => phone = value; }
         public int Id { get => id; set => id = value; }
 
+        public SecAccess()
+        {
+
+        }
         public SecAccess(string Cname,string surname,string patronymic,DateTime Date_of_birth, int phone)   //insert
         {
             if(Cname !="" && surname!="" && patronymic != "" && phone>0)

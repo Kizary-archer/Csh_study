@@ -84,8 +84,31 @@ namespace lab12
             reader.Read();
             SecAccess curClient = new SecAccess((int)reader[0], (string)reader[1], (string)reader[2], (string)reader[3], (DateTime)reader[4], (int)reader[5]);
             reader.Close();
+            connectWarehousebd.Close();
             return curClient;
 
+        }
+        public List<SecAccess> GetAllClient()
+        {
+            SqlCommand cmd = new SqlCommand("SelectAllClient", connectWarehousebd);
+            cmd.CommandType = CommandType.StoredProcedure;
+            List<SecAccess> curClients = new List<SecAccess>();
+            connectWarehousebd.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                SecAccess curClient = new SecAccess();
+                curClient.Id = (int)reader[0];
+                curClient.CName = (string)reader[1];
+                curClient.Surname = (string)reader[2];
+                curClient.Patronymic = (string)reader[3];
+                curClient.Date_of_Birth = (DateTime)reader[4];
+                curClient.Phone = (int)reader[5];
+                curClients.Add(curClient);
+            }
+            reader.Close();
+            connectWarehousebd.Close();
+            return curClients;
         }
     }
 

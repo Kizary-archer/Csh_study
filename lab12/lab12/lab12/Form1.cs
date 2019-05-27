@@ -23,10 +23,12 @@ namespace lab12
             groupBox1.Visible = false;
             dataGridView1.Enabled = true;
             clientsDB clients = new clientsDB("warehouseConnectionString");//подключаемся к бд и заполняем датасет
-            dataGridView1.DataSource = clients.ds.standalone_clients;
-            dataGridView1.Columns[0].Visible = false;
+            //dataGridView1.DataSource = clients.ds.standalone_clients;
+            //dataGridView1.Columns[0].Visible = false;
+            bindingSource1.DataSource = clients.GetAllClient();
+            dataGridView1.DataSource = bindingSource1;
             deleteButton = new DataGridViewButtonColumn();
-            //deleteButton.HeaderText = "Х";
+            deleteButton.HeaderText = "Х";
             deleteButton.Text = "Х";
             deleteButton.UseColumnTextForButtonValue = true;
             deleteButton.Width = 30;
@@ -47,6 +49,8 @@ namespace lab12
             groupBox1.Visible = true;
             dataGridView1.Enabled = false;
             button2.Enabled = false;
+            button3.Visible = false;
+            button1.Visible = true;
             this.Width = 888;
         }
         private void cancel()
@@ -57,7 +61,7 @@ namespace lab12
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
-           // maskedTextBox1.Text = "2343453212";
+            maskedTextBox1.Text = "";
             this.Width = 630;
         }
 
@@ -74,27 +78,27 @@ namespace lab12
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             clientsDB clients = new clientsDB("warehouseConnectionString");
+            
             if (dataGridView1.Columns[e.ColumnIndex] == deleteButton)
             {
                 clients.Delete(new SecAccess(dataGridView1.CurrentRow.Index));
                 dataGridView1.DataSource = clients.ds.standalone_clients;
+
             }
             else
             {
-                int ind = Convert.ToInt32(dataGridView1[0, e.RowIndex].Value);
-               // MessageBox.Show(ind.ToString());
-                SecAccess access = clients.GetClient(ind);
+                int i = (int)dataGridView1[5, dataGridView1.CurrentCellAddress.Y].Value;
+                //MessageBox.Show(i.ToString());
+                SecAccess access = clients.GetClient(i);
                 textBox1.Text = access.CName;
                 textBox2.Text = access.Surname;
                 textBox3.Text = access.Patronymic;
                 dateTimePicker1.Value = access.Date_of_Birth;
                 maskedTextBox1.Text = access.Phone.ToString();
                 button1.Visible = false;
-                button4.Visible = false;
+                button3.Visible = true;
                 groupBox1.Visible = true;
                 this.Width = 888;
-
-
             }
 
         }
