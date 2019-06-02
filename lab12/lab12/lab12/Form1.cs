@@ -47,6 +47,10 @@ namespace lab12
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
+            maskedTextBox1.Text = "";
             groupBox1.Visible = true;
             dataGridView1.Enabled = false;
             button2.Enabled = false;

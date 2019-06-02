@@ -4,10 +4,14 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{F7D0B2E1-31BB-4B9B-BDA6-ACD35707D8EA}" Name="Warehouse" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="Warehouse.cdm"/>
-		<Model Expanded="Yes" ID="{707D1DCD-0966-47FE-ABF8-7567A6BFCCC2}" Name="Warehouse" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Warehouse.pdm"/>
-		<Model Expanded="Yes" ID="{707D1DCD-0966-47FE-ABF8-7567A6BFCCC2}" Name="Warehouse" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../ччч.pdm"/>
-		<Model Expanded="Yes" ID="{707D1DCD-0966-47FE-ABF8-7567A6BFCCC2}" Name="Warehouse" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../чччч.pdm"/>
+		<Model Expanded="Yes" ID="{F7D0B2E1-31BB-4B9B-BDA6-ACD35707D8EA}" Loaded="No" Name="Warehouse" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="Warehouse.cdm"/>
+		<Model Expanded="Yes" ID="{707D1DCD-0966-47FE-ABF8-7567A6BFCCC2}" Loaded="No" Name="Warehouse" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="Warehouse.pdm"/>
+		<Model Expanded="Yes" ID="{707D1DCD-0966-47FE-ABF8-7567A6BFCCC2}" Loaded="No" Name="Warehouse" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../ччч.pdm"/>
+		<Model Expanded="Yes" ID="{707D1DCD-0966-47FE-ABF8-7567A6BFCCC2}" Loaded="No" Name="Warehouse" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="../чччч.pdm"/>
+		<Model Expanded="Yes" ID="{F7D0B2E1-31BB-4B9B-BDA6-ACD35707D8EA}" Loaded="No" Name="Warehouse" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/GIT/bd_project/lab2/logic.cdm"/>
+		<Model ID="{F7D0B2E1-31BB-4B9B-BDA6-ACD35707D8EA}" Name="Warehouse" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="/GIT/bd_project/lab2/logic.cdm"/>
+		<Model ID="{B428E060-32F7-46E3-BD6F-49173521A8BA}" Name="Warehouse" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="/GIT/bd_project/lab2/Warehouse.pdm"/>
+		<Model Expanded="Yes" ID="{790AD481-74EA-457B-8593-0198369A155A}" Name="Warehouse2" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="/GIT/bd_project/lab2/Warehouse2.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>
